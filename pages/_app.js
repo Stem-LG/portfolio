@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Louay's Portfolio</title>
+                <title>{"Louay's Portfolio"}</title>
                 <meta
                     name="description"
                     content="Personal Porfolio for Louay Ghanney"
