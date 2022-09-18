@@ -4,13 +4,16 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Head from "next/head";
-import { ThemeProvider, FormControlLabel, Switch } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { lightTheme, darkTheme } from "../lib/theme";
 import { useEffect, useState, pro } from "react";
-import { appWithTranslation } from "next-i18next";
+import { appWithTranslation, useTranslation } from "next-i18next";
 import DarkContext from "../lib/contexts/darkmode";
 
 function MyApp({ Component, pageProps }) {
+
+    const {t} = useTranslation();
+
     const [isDarkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
@@ -20,10 +23,10 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>{"Louay's Portfolio"}</title>
+                <title>{t("website-title")}</title>
                 <meta
                     name="description"
-                    content="Personal Porfolio for Louay Ghanney"
+                    content={t("website-description")}
                 />
                 <link rel="icon" href="/favicon.ico" />
                 <meta
