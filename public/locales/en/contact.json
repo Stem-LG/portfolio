@@ -6,6 +6,7 @@
     "contact-message":"Message",
     "invalid-name":"Invalid Name",
     "invalid-email":"Invalid Email",
+    "invalid-subject":"Invalid Subject",
     "invalid-message":"message can't be less than 15 characters",
     "send":"Send",
     "sent":"Message Sent",
