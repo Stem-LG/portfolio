@@ -1,4 +1,3 @@
-import { useTheme, Button } from "@mui/material";
 import TopAppBar from "../lib/components/appbar";
 import DarkModeFab from "../lib/components/fab";
 import Home from "../lib/sections/home";

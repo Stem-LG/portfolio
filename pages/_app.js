@@ -6,13 +6,12 @@ import "@fontsource/roboto/700.css";
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material";
 import { lightTheme, darkTheme } from "../lib/theme";
-import { useEffect, useState, pro } from "react";
+import { useEffect, useState } from "react";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import DarkContext from "../lib/contexts/darkmode";
 
 function MyApp({ Component, pageProps }) {
-
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const [isDarkMode, setDarkMode] = useState(false);
 
@@ -24,10 +23,7 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <title>{t("website-title")}</title>
-                <meta
-                    name="description"
-                    content={t("website-description")}
-                />
+                <meta name="description" content={t("website-description")} />
                 <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="viewport"
