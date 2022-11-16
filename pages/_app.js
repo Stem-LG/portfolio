@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import DarkContext from "../lib/contexts/darkmode";
 
+
+
 function MyApp({ Component, pageProps }) {
     const { t } = useTranslation();
 
