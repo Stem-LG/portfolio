@@ -1,7 +1,7 @@
 import Router from "next/router";
 import { useEffect } from "react";
 
-export default function admin() {
+export default function Admin() {
     
     
     useEffect(() => {

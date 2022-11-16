@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DarkModeFab from "../../lib/components/fab";
 
 import TopAppBar from "../../lib/components/appbar";
-export default function admin_login() {
+export default function Admin_login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [logged, setLogged] = useState(false);
