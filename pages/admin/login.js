@@ -19,7 +19,7 @@ export default function Admin_login() {
     function login() {
         if (username.length >= 4 && password.length >= 8) {
             // console.log(`username: ${username}, password:${password}`);
-            fetch("api/login/", {
+            fetch("/api/login/", {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
