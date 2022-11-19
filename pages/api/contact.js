@@ -3,7 +3,7 @@ import { emailRegex } from "../../lib/regexPatterns";
 
 //name email subject message
 
-export default async (req, res) => {
+export default async function  Contact(req, res) {
     let messageData = {
         name: req.body.name,
         email: req.body.email,

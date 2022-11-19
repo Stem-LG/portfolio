@@ -1,6 +1,6 @@
 import { userInfo } from "../../lib/database/queries";
 
-export default async (req, res) => {
+export default async function UserInfo(req, res) {
     if (Boolean(req.body.token)) {
         let data = await userInfo({ token: req.body.token });
         if (data) {

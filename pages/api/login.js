@@ -3,7 +3,7 @@ import { pass2hash } from "../../lib/tools/encryption";
 import { compare } from "bcrypt";
 import { verifyLoginData } from "../../lib/tools/verify";
 
-export default async (req, res) => {
+export default async function Login(req, res){
     if (verifyLoginData(req.body) !== false) {
         let userData = await userInfo({
             username: req.body.username,
