@@ -4,7 +4,8 @@
         "Website for a Landscaping and Gardening Company",
         "A flutter app that calculates tunisian university orientation score",
         "flutter app that converts between binary, decimal, octal, hexadecimal and roman numbers",
-        "Battery management GUI utility for supported Asus laptops running a linux OS. Made with flutter"
+        "Battery management GUI utility for supported Asus laptops running a linux OS. Made with flutter",
+        "A link shortening service"
     ],
     "live-demo":"Live Demo",
     "see-more":"See More"

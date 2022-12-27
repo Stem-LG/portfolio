@@ -30,12 +30,8 @@ export default function Index(props) {
 
     useEffect(() => {
         fetch("/api/projects", {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
             method: "POST",
-            body: JSON.stringify({ quantity:12 }),
+            body: JSON.stringify({ quantity: 12 }),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -53,10 +49,11 @@ export default function Index(props) {
             <Grid
                 id={props.id}
                 container
-                height="calc(100vh - 64px)"
+                minHeight="calc(100vh - 64px)"
                 sx={{ bgcolor: theme.palette.background.default }}
                 width="100%"
                 justifyContent="space-evenly"
+                padding={5}
             >
                 {loading ? (
                     <Typography color={theme.palette.primary}>
@@ -64,7 +61,7 @@ export default function Index(props) {
                     </Typography>
                 ) : (
                     projects.map((proj, key) => (
-                        <Grid key={key} item mt={5}>
+                        <Grid key={key} item mb={5} ml={2} mr={2}>
                             <Project
                                 img={proj.img}
                                 title={proj.title}
