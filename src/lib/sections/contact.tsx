@@ -1,15 +1,10 @@
-import {
-    Box,
-    Grid,
-    
-    Button,
-    TextField,
-    useTheme,
-} from "@mui/material";
+import { Box, Grid, Button, TextField, useTheme } from "@mui/material";
 import SectionDivider from "../components/divider";
 import { useEmailVerifier, useLengthVerifier } from "../hooks/formvalidation";
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
+import { messageSchema } from "../../schema";
+import { ValidationError } from "yup";
 
 export default function Contact(props) {
     const theme = useTheme();
@@ -32,56 +27,64 @@ export default function Contact(props) {
     const [sendText, setSendText] = useState(t("send"));
 
     let data = {
-        name: name,
-        email: email,
-        subject: subject,
-        content: message,
+        name,
+        email,
+        subject,
+        message,
     };
 
     async function submitMessage() {
-        if (
-            nameValid &&
-            name != "" &&
-            emailValid &&
-            email != "" &&
-            messageValid &&
-            message != ""
-        ) {
-            fetch("/api/contact", {
+        try {
+            await messageSchema.validate(data);
+            fetch("/api/sendmessage", {
                 headers: {
-                    Accept: "application/json",
                     "Content-Type": "application/json",
                 },
                 method: "POST",
                 body: JSON.stringify(data),
-            }).then((res)=>res.json()).then(async (data)=>{
-                if (data.invalid) {
+            }).then(async ({ status }) => {
+                switch (status) {
+                    case 400:
+                        setSendColor("error");
+                        setSendText(t("invalid-data"));
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, 1000)
+                        );
+                        setSendColor("primary");
+                        setSendText(t("send"));
+                        break;
+                    case 409:
+                        setSendColor("error");
+                        setSendText(t("already-sent"));
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, 1000)
+                        );
+                        setSendColor("primary");
+                        setSendText(t("send"));
+                        break;
+                    case 200:
+                        setSendColor("success");
+                        setSendText(t("sent"));
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, 1000)
+                        );
+                        setSendColor("primary");
+                        setSendText(t("send"));
+                        break;
+                    default:
+                        break;
+                }
+            });
+        } catch (err) {
+            if (err instanceof ValidationError) {
                 setSendColor("error");
                 setSendText(t("invalid-data"));
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 setSendColor("primary");
                 setSendText(t("send"));
-            } else if (data.exist) {
-                setSendColor("error");
-                setSendText(t("already-sent"));
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                setSendColor("primary");
-                setSendText(t("send"));
-            } else {
-                setSendColor("success");
-                setSendText(t("sent"));
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                setSendColor("primary");
-                setSendText(t("send"));
             }
-            })
-        } else {
-            setSendColor("error");
-            setSendText(t("invalid-data"));
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            setSendColor("primary");
-            setSendText(t("send"));
         }
+
     }
 
     return (
@@ -151,6 +154,7 @@ export default function Contact(props) {
                     <Button
                         variant="contained"
                         sx={{ width: 300, borderRadius: "10px 0 10px 0" }}
+                        //@ts-ignore
                         color={sendColor}
                         onClick={submitMessage}
                     >

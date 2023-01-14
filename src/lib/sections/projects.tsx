@@ -1,10 +1,4 @@
-import {
-    Box,
-    useTheme,
-    Button,
-    Grid,
-    Typography,
-} from "@mui/material";
+import { Box, useTheme, Button, Grid, Typography } from "@mui/material";
 import { useTranslation } from "next-i18next";
 import SectionDivider from "../components/divider";
 import Project from "../components/project";
@@ -18,12 +12,14 @@ export default function Projects(props) {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("api/projects", { 
-            method:"POST",
-            body: JSON.stringify({quantity: 4})})
+        fetch("api/getprojects", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({ quantity: 4 }),
+        })
             .then((res) => res.json())
             .then((data) => {
-                setProjects(data);
+                setProjects(data.projects);
                 setLoading(false);
             });
     }, []);
@@ -38,17 +34,15 @@ export default function Projects(props) {
             <SectionDivider title={t("projects")} sx={{ pt: "64px" }} />
             <Grid container justifyContent="space-evenly">
                 {isLoading ? (
-                    <Typography color={theme.palette.primary}>
-                        Loading ...
-                    </Typography>
+                    <Typography color="primary">Loading ...</Typography>
                 ) : (
                     projects.map((proj, key) => (
                         <Grid key={key} item mt={5}>
                             <Project
-                                img={proj.img}
+                                img={proj.image}
                                 title={proj.title}
-                                desc={t(proj.desc)}
-                                github={proj.github}
+                                desc={t(proj.description)}
+                                github={proj.repository}
                                 live={proj.live}
                             />
                         </Grid>
@@ -73,8 +67,4 @@ export default function Projects(props) {
             </Grid>
         </Box>
     );
-}
-
-function projectsPlaceholder(props) {
-    return 0;
 }
