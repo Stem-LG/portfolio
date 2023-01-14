@@ -2,8 +2,6 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    Tabs,
-    Tab,
     Button,
     Menu,
     MenuItem,
@@ -101,36 +99,6 @@ function MdTrailing(props) {
             <Grid item>
                 <MdLangSwitcher Languages={props.Languages} />
             </Grid>
-        </Grid>
-    );
-}
-
-//unfinished
-function MdTrailingTabs(props) {
-    const [tabValue, setTabValue] = useState(0);
-
-    return (
-        <Grid
-            container
-            direction="row"
-            width="auto"
-            sx={{ display: { xs: "none", md: "flex" } }}
-        >
-            <Tabs
-                value={tabValue}
-                onChange={(e, newTabValue) => setTabValue(newTabValue)}
-                aria-label="nav menu"
-                textColor="primary"
-                indicatorColor="primary"
-            >
-                {props.sections.map((section, key) => (
-                    <Tab key={key} label={section.title} disableRipple></Tab>
-                ))}
-            </Tabs>
-            <Button variant="outlined" color="primary" sx={{ ml: 4 }}>
-                Resumé
-            </Button>
-            <MdLangSwitcher sx={{ ml: 4 }} />
         </Grid>
     );
 }

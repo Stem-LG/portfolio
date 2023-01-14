@@ -17,13 +17,4 @@ let projectSchema = Schema({
     live: String
 })
 
-
-let userSchema = Schema({
-    username: String,
-    email: String,
-    hashedpass: String,
-    tokens: [{ token: String, expirydate: Date }],
-    role: String,
-});
-
-export {messageSchema,projectSchema,userSchema}
+export {messageSchema,projectSchema}
