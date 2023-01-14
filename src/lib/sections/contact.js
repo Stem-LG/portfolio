@@ -1,7 +1,7 @@
 import {
     Box,
     Grid,
-    Typography,
+    
     Button,
     TextField,
     useTheme,
@@ -10,7 +10,6 @@ import SectionDivider from "../components/divider";
 import { useEmailVerifier, useLengthVerifier } from "../hooks/formvalidation";
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
-import axios from "axios";
 
 export default function Contact(props) {
     const theme = useTheme();

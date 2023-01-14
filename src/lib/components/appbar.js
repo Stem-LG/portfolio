@@ -23,7 +23,6 @@ import {
 import MyDrawer from "./drawer";
 import { useRouter } from "next/router";
 import { Languages } from "../languages";
-import { Lan } from "@mui/icons-material";
 
 export default function TopAppBar() {
     const { t } = useTranslation("appbar");
