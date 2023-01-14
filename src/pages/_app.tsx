@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
                     content="width=device-width, initial-scale=1"
                 ></meta>
             </Head>
+            {/*@ts-ignore*/}
             <DarkContext.Provider value={{ isDarkMode, setDarkMode }}>
                 <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
                     <Component {...pageProps} />

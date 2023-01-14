@@ -56,7 +56,7 @@ export default function Index(props) {
                 padding={5}
             >
                 {loading ? (
-                    <Typography color={theme.palette.primary}>
+                    <Typography color="primary">
                         Loading ...
                     </Typography>
                 ) : (
