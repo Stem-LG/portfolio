@@ -71,7 +71,7 @@ export default function Index(props) {
                         </Grid>
                     ))
                 )}
-                {session.user.role=="admin" ? (
+                {session?.user?.role=="admin" ? (
                     <Grid item mb={5} ml={2} mr={2}>
                         <AddCard />
                     </Grid>
