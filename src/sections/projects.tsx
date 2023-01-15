@@ -7,7 +7,6 @@ import Link from "next/link";
 
 export default function Projects(props) {
     const [projects, setProjects] = useState([]);
-    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch("api/getprojects", {
@@ -18,7 +17,6 @@ export default function Projects(props) {
             .then((res) => res.json())
             .then((data) => {
                 setProjects(data.projects);
-                setLoading(false);
             });
     }, []);
 
@@ -31,7 +29,7 @@ export default function Projects(props) {
         >
             <SectionDivider title={"projects"} sx={{ pt: "64px" }} />
             <Grid container justifyContent="space-evenly">
-                {isLoading ? (
+                {!!projects ? (
                     <Typography color="primary">Loading ...</Typography>
                 ) : (
                     projects.map((proj, key) => (

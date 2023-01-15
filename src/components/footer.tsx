@@ -17,7 +17,7 @@ export default function Footer() {
             <Grid item xs={2}></Grid>
             <Grid item xs={8}>
                 <Typography sx={{ textAlign: "center" }}>
-                    Software is Licenced under GPT 3.0{" "}
+                    Software is Licenced under GPL 3.0{" "}
                 </Typography>
             </Grid>
             <Grid item xs={2}>
