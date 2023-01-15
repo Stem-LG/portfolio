@@ -5,7 +5,7 @@ export default function Divider(props){
     return (
         <Grid container id={props.id} sx={props.sx}>
             <Grid item xs={3} md={2} alignItems="center" display="flex">
-                <hr width="100%" color={theme.palette.primary.main} />
+                <hr style={{width: "100%"}} color={theme.palette.primary.main} />
             </Grid>
             <Grid item xs={6} md={3}>
                 <Typography variant="h4" align="center">
@@ -13,7 +13,7 @@ export default function Divider(props){
                 </Typography>
             </Grid>
             <Grid item xs={3} md={7} alignItems="center" display="flex">
-                <hr width="100%" color={theme.palette.primary.main} />
+                <hr style={{width: "100%"}} color={theme.palette.primary.main} />
             </Grid>
         </Grid>
     );

@@ -25,5 +25,5 @@ export const projectSchema = yup.object({
 
 
 export const projectsRequestSchema = yup.object({
-    quantity: yup.number().min(1).required()
+    quantity: yup.number().min(1).optional()
 })

@@ -1,11 +1,8 @@
 import { Typography, Box, useTheme, Button, Grid } from "@mui/material";
-import { useTranslation } from "next-i18next";
 import Image from "next/image";
 
 export default function Home(props) {
     const theme = useTheme();
-    const {t} = useTranslation("home");
-
     return (
         <Grid
             id={props.id}
@@ -21,49 +18,62 @@ export default function Home(props) {
                 sx={{ bgcolor: theme.palette.background.default }}
                 justifyContent="center"
                 display="flex"
-                textAlign={{xs:"center",md:"left"}}
+                textAlign={{ xs: "center", md: "left" }}
                 flexDirection="column"
-                pl={{md:8}}
+                pl={{ md: 8,xl:30 }}
             >
-                <Typography variant="h6">{t("hello-text")}</Typography>
-                <AnimatedName name={t("my-name")} />
-                <Typography variant="h4">{t("my-occupation")}</Typography>
-                <Typography mt={3}>
-                    {t("my-description")}
-                    <br />
-                    {t("my-location")}
-                </Typography>
-                <Grid item container direction="row" mt={0} spacing={2} justifyContent={{xs:"center",md:"initial"}}>
-                    <Grid item display={{xs:"none",md:"block"}}>
-                        <Button
-                            variant="outlined"
-                            sx={{ borderRadius: "10px 0 10px 0" }}
-                        >
-                            {t("get-in-touch")}
-                        </Button>
-                    </Grid>
-
-                    <Grid item>
-                        <a
-                            href="/assets/docs/cv.pdf"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
+                <Box sx={{transform:{xl:"scale(1.4)"}}}>
+                    <Typography variant="h6">{"Hello there, I'm"}</Typography>
+                    <AnimatedName name={"Louay Ghanney"} />
+                    <Typography variant="h4">
+                        {"I make awesome websites"}
+                    </Typography>
+                    <Typography mt={3}>
+                        {
+                            "Full Stack Developer, IT Undergrad @ISETN  & Technology lover"
+                        }
+                        <br />
+                        {"Based in Nabeul, Tunisia"}
+                    </Typography>
+                    <Grid
+                        item
+                        container
+                        direction="row"
+                        mt={0}
+                        spacing={2}
+                        justifyContent={{ xs: "center", md: "initial" }}
+                    >
+                        <Grid item display={{ xs: "none", md: "block" }}>
                             <Button
                                 variant="outlined"
                                 sx={{ borderRadius: "10px 0 10px 0" }}
                             >
-                                {t("resume")}
+                                {"Get in touch"}
                             </Button>
-                        </a>
+                        </Grid>
+
+                        <Grid item>
+                            <a
+                                href="/assets/docs/cv.pdf"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <Button
+                                    variant="outlined"
+                                    sx={{ borderRadius: "10px 0 10px 0" }}
+                                >
+                                    {"Resumé"}
+                                </Button>
+                            </a>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Box>
             </Grid>
             <Grid
                 item
                 xs={5}
                 sx={{ bgcolor: theme.palette.background.default }}
-                display={{xs:"none",md:"block"}}
+                display={{ xs: "none", md: "block" }}
             >
                 <Image
                     alt="background_image"
@@ -79,7 +89,6 @@ export default function Home(props) {
 }
 
 function AnimatedName(props) {
-    const theme = useTheme();
     return (
         <>
             <Typography

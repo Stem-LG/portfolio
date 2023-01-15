@@ -14,8 +14,12 @@ export default function Project(props) {
     return (
         <Card
             sx={{
-                maxWidth: 300,
-                height: 450,
+                height: { xs: 457, xl: 557 },
+                width: {
+                    xs: 320,
+                    sm: 330,
+                    xl: 380,
+                },
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -25,15 +29,18 @@ export default function Project(props) {
                 <CardMedia
                     component="img"
                     alt="green iguana"
-                    height="250"
+                    sx={{ height: { xs: "250", xl: 350 } }}
                     image={props.img}
                 />
                 <CardContent sx={{ textAlign: { xs: "center", md: "left" } }}>
-                    <Typography gutterBottom variant="h4">
+                    <Typography
+                        gutterBottom
+                        sx={{ fontSize: { xs: 36, lg: 48 } }}
+                    >
                         {props.title}
                     </Typography>
                     <Typography
-                        variant="body2"
+                        sx={{ fontSize: { xs: 16, lg: 18 } }}
                         color={
                             theme.palette.mode == "dark"
                                 ? "secondary"
@@ -45,17 +52,20 @@ export default function Project(props) {
                 </CardContent>
             </Box>
             <CardActions
-                sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
+                sx={{ justifyContent: { xs: "center", md: "flex-start" },pb:2 }}
             >
                 <a target="_blank" rel="noreferrer" href={props.github}>
-                    <Button size="small" sx={{ borderRadius: "10px 0 10px 0" }}>
+                    <Button
+                        size="medium"
+                        sx={{ borderRadius: "10px 0 10px 0" }}
+                    >
                         Github
                     </Button>
                 </a>
                 <a target="_blank" rel="noreferrer" href={props.live}>
                     <Button
-                        disabled={!props.live != ""}
-                        size="small"
+                        disabled={!props.live}
+                        size="medium"
                         sx={{ borderRadius: "10px 0 10px 0" }}
                     >
                         Live Demo

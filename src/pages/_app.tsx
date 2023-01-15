@@ -7,14 +7,11 @@ import Head from "next/head";
 import { ThemeProvider } from "@mui/material";
 import { lightTheme, darkTheme } from "../lib/theme";
 import { useEffect, useState } from "react";
-import { appWithTranslation, useTranslation } from "next-i18next";
 import DarkContext from "../lib/contexts/darkmode";
 
 
 
 function MyApp({ Component, pageProps }) {
-    const { t } = useTranslation();
-
     const [isDarkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
@@ -24,8 +21,11 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>{t("website-title")}</title>
-                <meta name="description" content={t("website-description")} />
+                <title>{"Louay's Portfolio"}</title>
+                <meta
+                    name="description"
+                    content="Personal Porfolio for Louay Ghanney. Built with Next JS"
+                />
                 <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="viewport"
@@ -42,4 +42,4 @@ function MyApp({ Component, pageProps }) {
     );
 }
 
-export default appWithTranslation(MyApp);
+export default MyApp;

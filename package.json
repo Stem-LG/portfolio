@@ -12,18 +12,20 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
+    "@hookform/resolvers": "^2.9.10",
     "@mui/material": "^5.11.4",
     "@prisma/client": "^4.8.1",
     "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "next": "13.1.2",
-    "next-i18next": "^13.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.42.1",
     "react-icons": "^4.7.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/node": "18.11.18",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.2",
     "prisma": "^4.8.1"
