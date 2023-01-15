@@ -43,6 +43,7 @@ export default function TopAppBar() {
                     >
                         Louay Ghanney
                     </Typography>
+                    <Box width={32}/>
                     <MdTrailing sections={sections} />
                 </Toolbar>
             </AppBar>

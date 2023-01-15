@@ -56,7 +56,9 @@ export default function Projects(props) {
                     <Link href="/projects">
                         <Button
                             variant="contained"
-                            sx={{ borderRadius: "10px 0 10px 0" }}
+                            
+                            size="large"
+                            sx={{ borderRadius: "10px 0 10px 0", mt:{lg:10} }}
                         >
                             {"See More"}
                         </Button>

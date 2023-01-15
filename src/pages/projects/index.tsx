@@ -15,7 +15,6 @@ export default function Index(props) {
         fetch("api/getprojects", {
             method: "POST",
             headers: { "Content-type": "application/json" },
-            body: JSON.stringify({ quantity: 4 }),
         })
             .then((res) => res.json())
             .then((data) => {
