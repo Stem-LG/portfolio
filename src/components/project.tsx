@@ -29,14 +29,16 @@ export default function Project(props) {
                 <CardMedia
                     component="img"
                     alt="green iguana"
-                    sx={{ height: { xs: "250", xl: 350 } }}
+                    sx={{ height: { xs: 250, xl: 350 } }}
                     image={props.img}
                 />
-                <CardContent sx={{ textAlign: { xs: "center", md: "left" } }}>
-                    <Typography
-                        gutterBottom
-                        sx={{ fontSize: { xs: 36, lg: 48 } }}
-                    >
+                <CardContent
+                    sx={{
+                        pt: 0,
+                        textAlign: { xs: "center", md: "left" },
+                    }}
+                >
+                    <Typography sx={{ fontSize: { xs: 36, lg: 40 } }}>
                         {props.title}
                     </Typography>
                     <Typography
@@ -52,7 +54,10 @@ export default function Project(props) {
                 </CardContent>
             </Box>
             <CardActions
-                sx={{ justifyContent: { xs: "center", md: "flex-start" },pb:2 }}
+                sx={{
+                    justifyContent: { xs: "center", md: "flex-start" },
+                    pb: 2,
+                }}
             >
                 <a target="_blank" rel="noreferrer" href={props.github}>
                     <Button

@@ -1,10 +1,10 @@
-const { i18n } = require("./next-i18next.config");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  i18n,
+    reactStrictMode: true,
+    swcMinify: true,
+    images: {
+        domains: ["lh3.googleusercontent.com"],
+    },
 };
 
 module.exports = nextConfig;

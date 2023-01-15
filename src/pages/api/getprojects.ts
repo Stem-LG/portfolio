@@ -1,6 +1,5 @@
 import { PrismaClient } from ".prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import { MdBloodtype } from "react-icons/md";
 import { ValidationError } from "yup";
 import { projectsRequestSchema } from "../../schema";
 
@@ -8,10 +7,10 @@ import { projectsRequestSchema } from "../../schema";
 
 export default async ({ body }: NextApiRequest, res: NextApiResponse) => {
     try {
-        
+
         await projectsRequestSchema.validate(body)
         const prisma = new PrismaClient()
-        
+
         const { quantity } = body
 
 
@@ -36,7 +35,7 @@ export default async ({ body }: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({
                 error: err.message
             })
-        } 
+        }
         // else if (!!err.code) {
         //     res.status(err.code).json({ error: err.message })
         // } 

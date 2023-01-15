@@ -1,7 +1,7 @@
 import { Box, Grid, Button, TextField, useTheme } from "@mui/material";
 import SectionDivider from "../components/divider";
 import { useState } from "react";
-import { messageSchema } from "../../schema";
+import { messageSchema } from "../schema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
