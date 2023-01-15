@@ -29,7 +29,7 @@ export default function Projects(props) {
         >
             <SectionDivider title={"projects"} sx={{ pt: "64px" }} />
             <Grid container justifyContent="space-evenly">
-                {!!projects ? (
+                {!projects ? (
                     <Typography color="primary">Loading ...</Typography>
                 ) : (
                     projects.map((proj, key) => (
