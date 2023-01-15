@@ -5,13 +5,12 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material";
-import { lightTheme, darkTheme } from "../lib/theme";
+import { lightTheme, darkTheme } from "../theme";
 import { useEffect, useState } from "react";
-import DarkContext from "../lib/contexts/darkmode";
+import DarkContext from "../contexts/darkmode";
+import { SessionProvider } from "next-auth/react";
 
-
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     const [isDarkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
@@ -34,9 +33,11 @@ function MyApp({ Component, pageProps }) {
             </Head>
             {/*@ts-ignore*/}
             <DarkContext.Provider value={{ isDarkMode, setDarkMode }}>
-                <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-                    <Component {...pageProps} />
-                </ThemeProvider>
+                <SessionProvider session={session}>
+                    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                        <Component {...pageProps} />
+                    </ThemeProvider>
+                </SessionProvider>
             </DarkContext.Provider>
         </>
     );
