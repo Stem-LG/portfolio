@@ -1,11 +1,8 @@
 import { Typography, Box, useTheme, Button, Grid } from "@mui/material";
-import { useTranslation } from "next-i18next";
 import Image from "next/image";
 
 export default function Home(props) {
     const theme = useTheme();
-    const {t} = useTranslation("home");
-
     return (
         <Grid
             id={props.id}
@@ -25,13 +22,13 @@ export default function Home(props) {
                 flexDirection="column"
                 pl={{md:8}}
             >
-                <Typography variant="h6">{t("hello-text")}</Typography>
-                <AnimatedName name={t("my-name")} />
-                <Typography variant="h4">{t("my-occupation")}</Typography>
+                <Typography variant="h6">{"Hello there, I'm"}</Typography>
+                <AnimatedName name={"Louay Ghanney"} />
+                <Typography variant="h4">{"I make awesome websites"}</Typography>
                 <Typography mt={3}>
-                    {t("my-description")}
+                    {"Full Stack Developer, IT Undergrad @ISETN  & Technology lover"}
                     <br />
-                    {t("my-location")}
+                    {"Based in Nabeul, Tunisia"}
                 </Typography>
                 <Grid item container direction="row" mt={0} spacing={2} justifyContent={{xs:"center",md:"initial"}}>
                     <Grid item display={{xs:"none",md:"block"}}>
@@ -39,7 +36,7 @@ export default function Home(props) {
                             variant="outlined"
                             sx={{ borderRadius: "10px 0 10px 0" }}
                         >
-                            {t("get-in-touch")}
+                            {"Get in touch"}
                         </Button>
                     </Grid>
 
@@ -53,7 +50,7 @@ export default function Home(props) {
                                 variant="outlined"
                                 sx={{ borderRadius: "10px 0 10px 0" }}
                             >
-                                {t("resume")}
+                                {"Resumé"}
                             </Button>
                         </a>
                     </Grid>
@@ -79,7 +76,6 @@ export default function Home(props) {
 }
 
 function AnimatedName(props) {
-    const theme = useTheme();
     return (
         <>
             <Typography

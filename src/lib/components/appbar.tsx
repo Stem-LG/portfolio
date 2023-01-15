@@ -3,36 +3,20 @@ import {
     Toolbar,
     Typography,
     Button,
-    Menu,
-    MenuItem,
     Box,
     useTheme,
-    IconButton,
     Grid,
 } from "@mui/material";
-import { useTranslation } from "next-i18next";
-import { useState } from "react";
-import {
-    MdHome,
-    MdOutlineListAlt,
-    MdMessage,
-    MdMail,
-    MdKeyboardArrowDown,
-    MdTranslate,
-} from "react-icons/md";
+import { MdHome, MdOutlineListAlt, MdMessage } from "react-icons/md";
 import MyDrawer from "./drawer";
-import { useRouter } from "next/router";
-import { Languages } from "../languages";
 
 export default function TopAppBar() {
-    const { t } = useTranslation("appbar");
-
     const theme = useTheme();
 
     const sections = [
-        { title: t("home"), icon: <MdHome />, link: "/#home" },
-        { title: t("projects"), icon: <MdOutlineListAlt />, link: "/#projects" },
-        { title: t("contact"), icon: <MdMessage />, link: "/#contact" },
+        { title: "Home", icon: <MdHome />, link: "/#home" },
+        { title: "Projects", icon: <MdOutlineListAlt />, link: "/#projects" },
+        { title: "Contact", icon: <MdMessage />, link: "/#contact" },
     ];
 
     return (
@@ -59,10 +43,7 @@ export default function TopAppBar() {
                     >
                         Louay Ghanney
                     </Typography>
-                    <MdTrailing sections={sections} Languages={Languages} />
-                    <Box sx={{ display: { md: "none" } }}>
-                        <XsLangSwitcher Languages={Languages}/>
-                    </Box>
+                    <MdTrailing sections={sections} />
                 </Toolbar>
             </AppBar>
             <Box height={{ xs: "48px", sm: "64px" }} />
@@ -95,88 +76,6 @@ function MdTrailing(props) {
                     </Grid>
                 );
             })}
-            <Grid item>
-                <MdLangSwitcher Languages={props.Languages} />
-            </Grid>
         </Grid>
-    );
-}
-
-function MdLangSwitcher(props) {
-    const router = useRouter();
-
-    const initLang = props.Languages.find((l) => l.locale == router.locale);
-    const [CurrentLang, setCurrentLang] = useState(
-        Boolean(initLang) ? initLang : props.Languages[0]
-    );
-    const [anchorEl, setAnchorEl] = useState(null);
-    return (
-        <>
-            <Button
-                onClick={(e) => {
-                    setAnchorEl(e.currentTarget);
-                }}
-                color="primary"
-                {...props}
-                sx={{ borderRadius: "10px 0 10px 0" }}
-            >
-                <MdKeyboardArrowDown size={20} />
-                {CurrentLang.display}
-            </Button>
-            <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={() => setAnchorEl(null)}
-            >
-                {props.Languages.map((value, key) => (
-                    <MenuItem
-                        key={key}
-                        onClick={() => {
-                            setCurrentLang(value.display);
-                            setAnchorEl(null);
-                            router.push("", "", { locale: value.locale });
-                        }}
-                    >
-                        {value.display}
-                    </MenuItem>
-                ))}
-            </Menu>
-        </>
-    );
-}
-
-function XsLangSwitcher(props) {
-    const router = useRouter();
-    const [anchorEl, setAnchorEl] = useState(null);
-    return (
-        <>
-            <IconButton
-                onClick={(e) => {
-                    setAnchorEl(e.currentTarget);
-                }}
-                color="primary"
-                {...props}
-                sx={{ borderRadius: "10px 0 10px 0" }}
-            >
-                <MdTranslate />
-            </IconButton>
-            <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={() => setAnchorEl(null)}
-            >
-                {props.Languages.map((value, key) => (
-                    <MenuItem
-                        key={key}
-                        onClick={() => {
-                            setAnchorEl(null);
-                            router.push("", "", { locale: value.locale });
-                        }}
-                    >
-                        {value.display}
-                    </MenuItem>
-                ))}
-            </Menu>
-        </>
     );
 }

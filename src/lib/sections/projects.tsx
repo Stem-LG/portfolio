@@ -1,5 +1,4 @@
 import { Box, useTheme, Button, Grid, Typography } from "@mui/material";
-import { useTranslation } from "next-i18next";
 import SectionDivider from "../components/divider";
 import Project from "../components/project";
 import { useState } from "react";
@@ -7,7 +6,6 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 export default function Projects(props) {
-    const { t } = useTranslation("projects");
     const [projects, setProjects] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
@@ -31,7 +29,7 @@ export default function Projects(props) {
             id={props.id}
             sx={{ bgcolor: theme.palette.background.default }}
         >
-            <SectionDivider title={t("projects")} sx={{ pt: "64px" }} />
+            <SectionDivider title={"projects"} sx={{ pt: "64px" }} />
             <Grid container justifyContent="space-evenly">
                 {isLoading ? (
                     <Typography color="primary">Loading ...</Typography>
@@ -41,7 +39,7 @@ export default function Projects(props) {
                             <Project
                                 img={proj.image}
                                 title={proj.title}
-                                desc={t(proj.description)}
+                                desc={proj.description}
                                 github={proj.repository}
                                 live={proj.live}
                             />
@@ -60,7 +58,7 @@ export default function Projects(props) {
                             variant="contained"
                             sx={{ borderRadius: "10px 0 10px 0" }}
                         >
-                            {t("see-more")}
+                            {"See More"}
                         </Button>
                     </Link>
                 </Grid>

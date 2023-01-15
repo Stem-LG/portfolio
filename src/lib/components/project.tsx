@@ -54,7 +54,7 @@ export default function Project(props) {
                 </a>
                 <a target="_blank" rel="noreferrer" href={props.live}>
                     <Button
-                        disabled={!props.live != ""}
+                        disabled={!props.live}
                         size="small"
                         sx={{ borderRadius: "10px 0 10px 0" }}
                     >
