@@ -1,10 +1,6 @@
 import "../styles/globals.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
 import Head from "next/head";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { lightTheme, darkTheme } from "../theme";
 import { useEffect, useState } from "react";
 import DarkContext from "../contexts/darkmode";
@@ -26,6 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     content="Personal Porfolio for Louay Ghanney. Built with Next JS"
                 />
                 <link rel="icon" href="/favicon.ico" />
+                <link href="/fonts/flama.css" rel="stylesheet" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
@@ -35,6 +32,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <DarkContext.Provider value={{ isDarkMode, setDarkMode }}>
                 <SessionProvider session={session}>
                     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                        <CssBaseline/>
                         <Component {...pageProps} />
                     </ThemeProvider>
                 </SessionProvider>

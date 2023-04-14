@@ -31,14 +31,14 @@ export default function UserInfo() {
                         sx={{
                             bgcolor: theme.palette.background.default,
                             textAlign: "center",
-                            pt: 15,
+                            pt: 5,
                         }}
                     >
                         <Paper
                             sx={{
                                 width: { xs: "90%", md: "70%" },
                                 margin: "0 auto",
-                                pt: 5,
+                                py: 5,
                             }}
                         >
                             <Typography mb={5} variant="h3">
@@ -106,11 +106,6 @@ export default function UserInfo() {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Typography variant="body1" p={3}>
-                                linky.louay.ga is a tool to shorten a URL or
-                                reduce the length of a link for making it easy
-                                to remember
-                            </Typography>
                         </Paper>
                     </Box>
                     <DarkModeFab />

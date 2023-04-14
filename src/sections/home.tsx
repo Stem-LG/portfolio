@@ -1,105 +1,94 @@
-import { Typography, Box, useTheme, Button, Grid } from "@mui/material";
+import { Typography, Box, Button, Grid } from "@mui/material";
 import Image from "next/image";
+import { Typewriter } from "react-simple-typewriter";
+import Tilt from "react-parallax-tilt";
 
 export default function Home(props) {
-    const theme = useTheme();
     return (
-        <Grid
-            id={props.id}
-            container
-            height="calc(100vh - 64px)"
-            sx={{ bgcolor: theme.palette.background.default }}
-        >
-            <Grid
-                xs={12}
-                md={7}
-                item
-                container
-                sx={{ bgcolor: theme.palette.background.default }}
+        <Box sx={{ height: "calc(100vh - 64px)",width:"100%", display: "flex", justifyContent:"space-between", alignItems:"center" }}>
+            <Box
                 justifyContent="center"
                 display="flex"
-                textAlign={{ xs: "center", md: "left" }}
+                textAlign={{ xs: "center", lg: "left" }}
                 flexDirection="column"
-                pl={{ md: 8,xl:30 }}
+                pl={{ lg: "6rem" }}
+                sx={{
+                    width:{xs:"100%",lg:"65%"}
+                }}
             >
-                <Box sx={{transform:{xl:"scale(1.4)"}}}>
-                    <Typography variant="h6">{"Hello there, I'm"}</Typography>
-                    <AnimatedName name={"Louay Ghanney"} />
-                    <Typography variant="h4">
-                        {"I make awesome websites"}
-                    </Typography>
-                    <Typography mt={3}>
+                <Typography variant="h6">Hello there, My name is</Typography>
+                <Typography
+                    variant="h2"
+                    color="primary"
+                    fontWeight="bold"
+                    sx={{  }}
+                >
+                    Louay Ghanney
+                </Typography>
+                <Typography variant="h5">
+                    I&apos;m a&nbsp;
+                    <Typewriter
+                        words={[
+                            "FullStack Developer",
+                            "ML Enthusiast",
+                            "Freelancer",
+                        ]}
+                        cursor
+                        cursorStyle="!"
+                        cursorBlinking={true}
+                        typeSpeed={50}
+                        deleteSpeed={25}
+                        delaySpeed={2500}
+                        loop={false}
+                    />
+                </Typography>
+                <Typography mt={3}>{"Based in Nabeul, Tunisia"}</Typography>
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: "1rem",
+                        mt: "1rem",
+                        justifyContent: { xs: "center", lg: "left" },
+                    }}
+                >
+                    {[
+                        { title: "Get in touch", link: "#contact" },
                         {
-                            "Full Stack Developer, IT Undergrad @ISETN  & Technology lover"
-                        }
-                        <br />
-                        {"Based in Nabeul, Tunisia"}
-                    </Typography>
-                    <Grid
-                        item
-                        container
-                        direction="row"
-                        mt={0}
-                        spacing={2}
-                        justifyContent={{ xs: "center", md: "initial" }}
-                    >
-                        <Grid item display={{ xs: "none", md: "block" }}>
-                            <Button
-                                variant="outlined"
-                                sx={{ borderRadius: "10px 0 10px 0" }}
-                            >
-                                {"Get in touch"}
-                            </Button>
-                        </Grid>
-
-                        <Grid item>
+                            title: "Resume",
+                            link: "/assets/docs/cv_english.pdf",
+                        },
+                    ].map(({ title, link }, i) => (
+                        <Tilt
+                            key={i}
+                            scale={1.06}
+                            tiltMaxAngleX={10}
+                            tiltMaxAngleY={10}
+                        >
                             <a
-                                href="/assets/docs/cv.pdf"
-                                target="_blank"
+                                href={link}
+                                target={link[0] == "#" ? "" : "_blank"}
                                 rel="noreferrer"
                             >
                                 <Button
                                     variant="outlined"
                                     sx={{ borderRadius: "10px 0 10px 0" }}
                                 >
-                                    {"Resumé"}
+                                    {title}
                                 </Button>
                             </a>
-                        </Grid>
-                    </Grid>
+                        </Tilt>
+                    ))}
                 </Box>
-            </Grid>
-            <Grid
-                item
-                xs={5}
-                sx={{ bgcolor: theme.palette.background.default }}
-                display={{ xs: "none", md: "block" }}
-            >
+            </Box>
+            <Box sx={{display:{xs:"none", lg:"block"}, height:"100%", width:"80%" }}>
                 <Image
                     alt="background_image"
                     src="/assets/images/web_desn_img.png"
-                    layout="intrinsic"
-                    height="2500"
-                    width="2500"
+                    width={1024}
+                    height={1024}
+                    style={{width:"100%",height:"100%", objectFit:"scale-down"}}
                 />
-                <Box />
-            </Grid>
-        </Grid>
-    );
-}
-
-function AnimatedName(props) {
-    return (
-        <>
-            <Typography
-                variant="h2"
-                color="primary"
-                fontWeight="bold"
-                fontFamily="cursive"
-                sx={{ mt: -2 }}
-            >
-                {props.name}
-            </Typography>
-        </>
+            </Box>
+        </Box>
     );
 }

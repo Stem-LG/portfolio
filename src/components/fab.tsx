@@ -5,70 +5,91 @@ import { FaMoon, FaSun, FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image"
+import Image from "next/image";
+import Tilt from "react-parallax-tilt";
 
 export default function FloatingButtons() {
     const { isDarkMode, setDarkMode } = useContext(DarkModeContext);
-    const {data: session} = useSession()
+    const { data: session } = useSession();
     return (
         <Box
-            sx={{ position: "fixed", bottom: 16, right: 16, gap: 1 }}
+            sx={{
+                position: "fixed",
+                alignItems: "end",
+                bottom: 16,
+                right: 16,
+                gap: 1,
+            }}
             display="flex"
             flexDirection={{ xs: "row", md: "column" }}
         >
-            <Link href="/userinfo" style={{ display: "flex" }}>
+            <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
+
+            <Link href="/userinfo">
                 <Fab
                     sx={{
-                        marginLeft: "auto",
-                        marginTop: "auto",
                         display: !session ? "none" : "flex",
                     }}
-                >
+                    >
                     <Image
                         src={session?.user?.image?.toString() || ""}
                         style={{ borderRadius: "50%" }}
                         alt="user image"
                         fill={true}
                         object-fit="cover"
-                    />
+                        />
                 </Fab>
             </Link>
+                        </Tilt>
             <Box
                 sx={{ gap: 1 }}
                 display="flex"
                 flexDirection={{ xs: "column", md: "row" }}
                 alignItems="center"
             >
-                <a
-                    href="https://github.com/Stem-LG"
-                    rel="noreferrer"
-                    target="_blank"
-                >
-                    <Fab color="primary" size="small">
-                        <FaGithub size={20} />
+                {[
+                    {
+                        Icon: FaGithub,
+                        link: "https://github.com/Stem-LG",
+                        newtab: true,
+                    },
+                    {
+                        Icon: FaLinkedin,
+                        link: "https://www.linkedin.com/in/louay-ghanney/",
+                        newtab: true,
+                    },
+                    {
+                        Icon: MdEmail,
+                        link: "mailto:louayghanney71@outlook.com",
+                        newtab: false,
+                    },
+                ].map(({ Icon, link, newtab }, i) => (
+                    <Tilt
+                        key={i}
+                        scale={1.06}
+                        tiltMaxAngleX={15}
+                        tiltMaxAngleY={15}
+                    >
+                        <a href={link} target={newtab ? "_blank" : ""} rel="noreferrer">
+                            <Fab color="primary" size="small">
+                                <Icon size={20} />
+                            </Fab>
+                        </a>
+                    </Tilt>
+                ))}
+                <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
+                    <Fab
+                        color="primary"
+                        size="large"
+                        onClick={() => setDarkMode(!isDarkMode)}
+                    >
+                        {isDarkMode ? (
+                            <FaMoon size={25} />
+                        ) : (
+                            <FaSun size={25} />
+                        )}
                     </Fab>
-                </a>
-                <a
-                    href="https://www.linkedin.com/in/louay-ghanney/"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    <Fab color="primary" size="small">
-                        <FaLinkedin size={20} />
-                    </Fab>
-                </a>
-                <a href="mailto:louayghanney71@outlook.com">
-                    <Fab color="primary" size="small">
-                        <MdEmail size={20} />
-                    </Fab>
-                </a>
-                <Fab
-                    color="primary"
-                    size="large"
-                    onClick={() => setDarkMode(!isDarkMode)}
-                >
-                    {isDarkMode ? <FaMoon size={25} /> : <FaSun size={25} />}
-                </Fab>
+                </Tilt>
             </Box>
         </Box>
     );

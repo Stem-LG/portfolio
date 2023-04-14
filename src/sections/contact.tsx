@@ -4,6 +4,7 @@ import { useState } from "react";
 import { messageSchema } from "../schema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Tilt from "react-parallax-tilt";
 
 interface inputType {
     name: string;
@@ -12,14 +13,16 @@ interface inputType {
     message: string;
 }
 
+//create a type of a string variable that can only be "primary" or "secondary"
+type submitColorType = "primary" | "error" | "success";
+
 export default function Contact(props) {
     const theme = useTheme();
 
-    const [sendColor, setSendColor] = useState("primary");
+    const [sendColor, setSendColor] = useState<submitColorType>("primary");
     const [sendText, setSendText] = useState("send");
 
-
-    async function tempButtonColor(color: string, message: string) {
+    async function tempButtonColor(color: submitColorType, message: string) {
         setSendColor(color);
         setSendText(message);
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -60,82 +63,75 @@ export default function Contact(props) {
     }
 
     return (
-        <Box
-            minHeight={{ xs: "calc(100vh)", md: "100vh" }}
-            sx={{ bgcolor: theme.palette.background.default }}
-            id={props.id}
-        >
+        <Box minHeight="100vh" id={props.id}>
             <SectionDivider title={"contact"} sx={{ pt: "64px" }} />
-            <Grid
-                container
-                justifyContent="space-evenly"
-                sx={{ mt: { xl: 20 } }}
+            <Box
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "1rem",
+                    pt: "5rem",
+                    //center this box
+                    width: "70%",
+                    margin: "auto",
+                }}
             >
-                <Grid item xs={12} textAlign="center">
-                    <TextField
-                        {...register("name")}
-                        error={!!errors.name}
-                        helperText={errors.name?.message}
-                        label={"name"}
-                        variant="outlined"
-                        sx={{ width: "70%", mt: 7.5 }}
-                        inputProps={{ maxLength: 40 }}
-                    />
-                </Grid>
-                <Grid item xs={12} textAlign="center">
-                    <TextField
-                        {...register("email")}
-                        error={!!errors.email}
-                        helperText={errors.email?.message}
-                        label={"email"}
-                        variant="outlined"
-                        sx={{ width: "70%", mt: 3 }}
-                    />
-                </Grid>
-                <Grid item xs={12} textAlign="center">
-                    <TextField
-                        {...register("subject")}
-                        error={!!errors.subject}
-                        helperText={errors.subject?.message}
-                        label={"subject"}
-                        variant="outlined"
-                        sx={{ width: "70%", mt: 3 }}
-                        inputProps={{ maxLength: 100 }}
-                    />
-                </Grid>
-                <Grid item xs={12} textAlign="center">
-                    <TextField
-                        {...register("message")}
-                        error={!!errors.message}
-                        helperText={errors.message?.message}
-                        label={"message"}
-                        variant="outlined"
-                        multiline
-                        rows={5}
-                        sx={{ width: "70%", mt: 3 }}
-                        inputProps={{ maxLength: 500 }}
-                    />
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    pt={1.5}
-                    display="flex"
-                    justifyContent="center"
+                <TextField
+                    {...register("name")}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                    label={"Name"}
+                    variant="outlined"
+                    inputProps={{ maxLength: 40 }}
+                    fullWidth
+                />
+                <TextField
+                    {...register("email")}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    label={"Email"}
+                    variant="outlined"
+                    fullWidth
+                />
+                <TextField
+                    {...register("subject")}
+                    error={!!errors.subject}
+                    helperText={errors.subject?.message}
+                    label={"Subject"}
+                    variant="outlined"
+                    inputProps={{ maxLength: 100 }}
+                    fullWidth
+                />
+                <TextField
+                    {...register("message")}
+                    error={!!errors.message}
+                    helperText={errors.message?.message}
+                    label={"Message"}
+                    variant="outlined"
+                    multiline
+                    rows={5}
+                    inputProps={{ maxLength: 500 }}
+                    fullWidth
+                />
+                <Tilt
+                    scale={1.06}
+                    tiltMaxAngleX={7}
+                    tiltMaxAngleY={7}
                 >
                     <Button
                         variant="contained"
-                        sx={{ width: 300, borderRadius: "10px 0 10px 0" }}
-                        //@ts-ignore
+                        sx={{ width: "12rem", borderRadius: "10px 0 10px 0" }}
                         color={sendColor}
                         type="submit"
                     >
                         {sendText}
                     </Button>
-                </Grid>
-            </Grid>
+                </Tilt>
+            </Box>
         </Box>
     );
 }

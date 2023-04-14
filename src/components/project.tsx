@@ -7,76 +7,89 @@ import {
     CardContent,
     CardActions,
     useTheme,
+    Paper,
 } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import Tilt from "react-parallax-tilt";
 
-export default function Project(props) {
-    const theme = useTheme();
+export default function Project({ img, title, desc, github, live }) {
     return (
-        <Card
+        <Paper
             sx={{
-                height: { xs: 457, xl: 557 },
-                width: {
-                    xs: 320,
-                    sm: 330,
-                    xl: 380,
-                },
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
+                mx: "1rem",
+                mt: "1rem",
+                height: { xs: "12rem", sm: "17rem" },
+                width: { xs: "calc(100vw-1rem)", sm: "19.75rem" },
+                position: "relative",
+                borderRadius: "1rem",
+                
             }}
+            elevation={7}
         >
-            <Box>
-                <CardMedia
-                    component="img"
-                    alt="green iguana"
-                    sx={{ height: { xs: 250, xl: 350 } }}
-                    image={props.img}
-                />
-                <CardContent
-                    sx={{
-                        pt: 0,
-                        textAlign: { xs: "center", md: "left" },
-                    }}
-                >
-                    <Typography sx={{ fontSize: { xs: 36, lg: 40 } }}>
-                        {props.title}
-                    </Typography>
-                    <Typography
-                        sx={{ fontSize: { xs: 16, lg: 18 } }}
-                        color={
-                            theme.palette.mode == "dark"
-                                ? "secondary"
-                                : "initial"
-                        }
-                    >
-                        {props.desc}
-                    </Typography>
-                </CardContent>
-            </Box>
-            <CardActions
+            <Image
+                src={img}
+                width={768}
+                height={768}
+                style={{
+                    objectFit: "cover",
+                    objectPosition: "top",
+                    height: "8rem",
+                    width: "100%",
+                    margin: 0,
+                    padding: 0,
+                    borderRadius: "1rem 1rem 0 0",
+                }}
+                alt="hello"
+            ></Image>
+            <Typography
                 sx={{
-                    justifyContent: { xs: "center", md: "flex-start" },
-                    pb: 2,
+                    mt: "0.3rem",
+                    px: "1rem",
+                    textAlign: "center",
+                    display: { xs: "none", sm: "block" },
                 }}
             >
-                <a target="_blank" rel="noreferrer" href={props.github}>
-                    <Button
-                        size="medium"
-                        sx={{ borderRadius: "10px 0 10px 0" }}
+                {desc}
+            </Typography>
+            <Box
+                sx={{
+                    height: "4rem",
+                    width: "100%",
+                    px: "0.75rem",
+                    display: "flex",
+                    alignItems: "center",
+                    position: "absolute",
+                    bottom: 0,
+                }}
+            >
+                <Typography sx={{ flexGrow: 1 }}>{title}</Typography>
+                {[
+                    { title: "Github", link: github },
+                    { title: "Visit", link: live },
+                ].map(({ title, link }, i) => (
+                    <Tilt
+                        key={i}
+                        scale={1.06}
+                        tiltMaxAngleX={15}
+                        tiltMaxAngleY={15}
                     >
-                        Github
-                    </Button>
-                </a>
-                <a target="_blank" rel="noreferrer" href={props.live}>
-                    <Button
-                        disabled={!props.live}
-                        size="medium"
-                        sx={{ borderRadius: "10px 0 10px 0" }}
-                    >
-                        Live Demo
-                    </Button>
-                </a>
-            </CardActions>
-        </Card>
+                        <Link href={link ? link : ""} target="_blank">
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    height: "2.5rem",
+                                    width: "5rem",
+                                    ml: i == 0 ? "" : "0.5rem",
+                                    borderRadius: "1rem 0",
+                                }}
+                            >
+                                {title}
+                            </Button>
+                        </Link>
+                    </Tilt>
+                ))}
+            </Box>
+        </Paper>
     );
 }

@@ -1,3 +1,5 @@
+//Needs a remake
+
 import {
     Drawer,
     IconButton,
@@ -31,11 +33,6 @@ export default function MyDrawer(props) {
                 anchor="left"
                 open={drawerIsOpen}
                 onClose={() => setDrawerIsOpen(false)}
-                PaperProps={{
-                    sx: {
-                        backgroundColor: theme.palette.background.default,
-                    },
-                }}
             >
                 <List sx={{ width: 280 }}>
                     <IconButton

@@ -9,11 +9,19 @@ import {
 } from "@mui/material";
 import { MdHome, MdOutlineListAlt, MdMessage } from "react-icons/md";
 import MyDrawer from "./drawer";
+import Tilt from "react-parallax-tilt";
+import Link from "next/link";
+
+interface section {
+    title: string;
+    icon: JSX.Element;
+    link: string;
+}
 
 export default function TopAppBar() {
     const theme = useTheme();
 
-    const sections = [
+    const sections: section[] = [
         { title: "Home", icon: <MdHome />, link: "/#home" },
         { title: "Projects", icon: <MdOutlineListAlt />, link: "/#projects" },
         { title: "Contact", icon: <MdMessage />, link: "/#contact" },
@@ -25,58 +33,58 @@ export default function TopAppBar() {
                 <Toolbar
                     sx={{
                         justifyContent: "space-between",
-                        bgcolor: theme.palette.background.default,
-                        boxShadow: "3px white",
                     }}
                 >
                     <MyDrawer sections={sections} />
-
-                    <Typography
-                        variant="h6"
-                        sx={{
-                            border: 0.8,
-                            p: 0.5,
-                            borderRadius: "10px 0 10px 0",
-                        }}
-                        fontWeight="light"
-                        color="primary"
+                    <Tilt
+                        // scale={1.06}
+                        tiltMaxAngleX={10}
+                        tiltMaxAngleY={10}
                     >
-                        Louay Ghanney
-                    </Typography>
-                    <Box width={32}/>
+                        <Typography
+                            sx={{
+                                border: "2px solid",
+                                p: "5px",
+                                borderRadius: "1rem 0 1rem 0",
+                            }}
+                        >
+                            Louay Ghanney
+                        </Typography>
+                    </Tilt>
+                    <Box width={32} />
                     <MdTrailing sections={sections} />
                 </Toolbar>
             </AppBar>
-            <Box height={{ xs: "48px", sm: "64px" }} />
+            <Box id="home" height={{ xs: "48px", sm: "64px" }} />
         </>
     );
 }
 
-function MdTrailing(props) {
+function MdTrailing({ sections }: { sections: section[] }) {
     return (
-        <Grid
-            container
-            direction="row"
-            width="auto"
-            spacing={2}
-            sx={{ display: { xs: "none", md: "flex" } }}
-        >
-            {props.sections.map((section, key) => {
-                return (
-                    <Grid item key={key}>
-                        <a href={section.link}>
+        <>
+            <Box sx={{ display: { xs: "none", md: "flex" }, gap: "1rem" }}>
+                {sections.map(({ link, title }, key) => (
+                    <Tilt
+                        key={key}
+                        scale={1.06}
+                        tiltMaxAngleX={10}
+                        tiltMaxAngleY={10}
+                    >
+                        <Link href={link}>
                             <Button
                                 variant="contained"
-                                color="primary"
                                 key={key}
-                                sx={{ borderRadius: "10px 0 10px 0" }}
+                                sx={{
+                                    borderRadius: "1rem 0 1rem 0",
+                                }}
                             >
-                                {section.title}
+                                {title}
                             </Button>
-                        </a>
-                    </Grid>
-                );
-            })}
-        </Grid>
+                        </Link>
+                    </Tilt>
+                ))}
+            </Box>
+        </>
     );
 }
