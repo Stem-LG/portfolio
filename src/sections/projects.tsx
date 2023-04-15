@@ -27,8 +27,8 @@ export default function Projects(props) {
     const md = useMediaQuery("@media (min-width:1061px)");
 
     useEffect(() => {
-        fetch("api/getprojects", {
-            method: "POST",
+        fetch("api/projects", {
+            method: "GET",
             headers: { "Content-type": "application/json" },
         })
             .then((res) => res.json())

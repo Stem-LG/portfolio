@@ -39,7 +39,7 @@ export default function Contact(props) {
     });
 
     async function onSubmit(data: inputType) {
-        fetch("/api/sendmessage", {
+        fetch("/api/messages", {
             headers: {
                 "Content-Type": "application/json",
             },
