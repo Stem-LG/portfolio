@@ -8,9 +8,11 @@ import {
     Grid,
 } from "@mui/material";
 import { MdHome, MdOutlineListAlt, MdMessage } from "react-icons/md";
+import { TbCertificate } from "react-icons/tb";
 import MyDrawer from "./drawer";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";
+
 
 interface section {
     title: string;
@@ -23,6 +25,7 @@ export default function TopAppBar() {
 
     const sections: section[] = [
         { title: "Home", icon: <MdHome />, link: "/#home" },
+        { title: "Certifications", icon: <TbCertificate />, link: "/#certifications" },
         { title: "Projects", icon: <MdOutlineListAlt />, link: "/#projects" },
         { title: "Contact", icon: <MdMessage />, link: "/#contact" },
     ];

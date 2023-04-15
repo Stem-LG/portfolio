@@ -1,20 +1,18 @@
-import {Grid, Typography, useTheme} from "@mui/material"
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-export default function Divider(props){
-    const theme = useTheme()
+export default function Divider(props) {
+    const theme = useTheme();
+    const sm = useMediaQuery(theme.breakpoints.up("sm"))
+
     return (
-        <Grid container id={props.id} sx={props.sx}>
-            <Grid item xs={3} md={2} alignItems="center" display="flex">
-                <hr style={{width: "100%"}} color={theme.palette.primary.main} />
-            </Grid>
-            <Grid item xs={6} md={3}>
-                <Typography variant="h4" align="center">
-                    {props.title||"Default Title"}
-                </Typography>
-            </Grid>
-            <Grid item xs={3} md={7} alignItems="center" display="flex">
-                <hr style={{width: "100%"}} color={theme.palette.primary.main} />
-            </Grid>
-        </Grid>
+        <Box  id={props.id} sx={{...props.sx, display:"flex", alignItems:"center"}}>
+            <hr style={{ width: sm?"20%":"100%"}} color={theme.palette.primary.main} />
+
+            <Typography variant="h4" sx={{mx:"1rem"}}>
+                {props.title || "Default Title"}
+            </Typography>
+
+            <hr style={{ width: "100%" }} color={theme.palette.primary.main} />
+        </Box>
     );
 }

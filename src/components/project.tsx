@@ -17,8 +17,7 @@ export default function Project({ img, title, desc, github, live }) {
     return (
         <Paper
             sx={{
-                mx: "1rem",
-                mt: "1rem",
+                m: "1rem",
                 height: { xs: "12rem", sm: "17rem" },
                 width: { xs: "calc(100vw-1rem)", sm: "19.75rem" },
                 position: "relative",

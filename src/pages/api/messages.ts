@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ValidationError } from "yup";
 import { messageSchema } from "../../schema";
+import { MessageType } from "../../types/types";
 
 
 
@@ -55,14 +56,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-interface Message {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-}
 
-async function saveMessage(message: Message): Promise<number> {
+
+async function saveMessage(message: MessageType): Promise<number> {
     const prisma = new PrismaClient()
 
     if (await prisma.message.findFirst({

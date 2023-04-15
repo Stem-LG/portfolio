@@ -11,7 +11,7 @@ datasource db {
 }
 
 model message {
-  id      Int     @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   name    String
   email   String
   subject String?
@@ -27,6 +27,19 @@ model project {
   description String
   repository  String?
   live        String?
+}
+
+model certification {
+  id          Int      @id @default(autoincrement())
+  priority    Int      @default(0)
+  image       String
+  title       String
+  description String
+  issuer      String
+  date        DateTime
+  expiry      DateTime?
+  link        String?
+  presential      Boolean?
 }
 
 model Account {

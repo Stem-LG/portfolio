@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ValidationError } from "yup";
-import { projectSchema, projectsRequestSchema } from "../../schema";
+import { certificationSchema, certificationsRequestSchema } from "../../schema";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
-import { ProjectType } from "../../types/types";
+import { CertificationType } from "../../types/types";
 
 
 
@@ -17,13 +17,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         switch (method) {
             case "GET":
 
-                await projectsRequestSchema.validate(body)
+                await certificationsRequestSchema.validate(body)
 
                 const { quantity } = body;
 
-                const projects = await getProjects(quantity)
+                const certifications = await getCertifications(quantity)
 
-                res.status(200).json({ projects })
+                res.status(200).json({ certifications })
 
                 break;
 
@@ -34,11 +34,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 if (!session) {
                     //send nothing just 401 status
                     res.status(401).json({ error: "Access Denied. Not authenticated" })
-                    } else if (session.user.role == "admin") {
+                } else if (session.user.role == "admin") {
 
-                    await projectSchema.validate(body)
+                    await certificationSchema.validate(body)
 
-                    await addProject(body)
+                    await addCertification(body)
 
                     res.status(200)
 
@@ -73,39 +73,43 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 
-async function addProject(project: ProjectType) {
+
+async function addCertification(certification: CertificationType) {
 
     const prisma = new PrismaClient()
 
-    const newProject = await prisma.project.create({
-        data: project
+    const newCertification = await prisma.certification.create({
+        data: certification
     })
 
-    return newProject
+    return newCertification
 
 }
 
 
 
-async function getProjects(quantity: number) {
+async function getCertifications(quantity: number) {
 
     const prisma = new PrismaClient()
 
-    const projects = await prisma.project.findMany({
+    const certifications = await prisma.certification.findMany({
         orderBy: {
             priority: "asc"
         },
         take: quantity,
         select: {
+            priority: true,
+            image: true,
             title: true,
             description: true,
-            image: true,
-            priority: true,
-            repository: true,
-            live: true
+            issuer: true,
+            date: true,
+            expiry: true,
+            link: true,
+            presential: true
         }
     })
 
-    return projects
+    return certifications
 
 }

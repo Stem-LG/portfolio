@@ -22,8 +22,21 @@ export const projectSchema = yup.object({
     repository: yup.string().url().optional(),
     live: yup.string().url().optional()
 })
+export const certificationSchema = yup.object({
+    image: yup.string().url().required(),
+    title: yup.string().required(),
+    description: yup.string().max(70).required(),
+    issuer: yup.string().required(),
+    date: yup.date().required(),
+    expiry: yup.date().required(),
+    link: yup.string().url().optional(),
+    presential: yup.boolean().required()
+})
 
 
 export const projectsRequestSchema = yup.object({
+    quantity: yup.number().min(1).optional()
+})
+export const certificationsRequestSchema = yup.object({
     quantity: yup.number().min(1).optional()
 })

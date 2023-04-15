@@ -64,7 +64,7 @@ export default function Contact(props) {
 
     return (
         <Box minHeight="100vh" id={props.id}>
-            <SectionDivider title={"contact"} sx={{ pt: "64px" }} />
+            <SectionDivider title={"Contact"} sx={{ pt: "64px" }} />
             <Box
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}

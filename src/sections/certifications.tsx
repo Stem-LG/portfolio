@@ -2,38 +2,37 @@ import {
     Box,
     useTheme,
     Dialog,
-    Paper,
     useMediaQuery,
     IconButton,
     DialogTitle,
     DialogContent,
 } from "@mui/material";
 import SectionDivider from "../components/divider";
-import Project from "../components/project";
 import { useState } from "react";
 import { useEffect } from "react";
-import Link from "next/link";
 import Tilt from "react-parallax-tilt";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { MdClose } from "react-icons/md";
+import { CertificationType } from "../types/types";
+import { Certification } from "../components/certification";
 
-export default function Projects(props) {
-    const [projects, setProjects] = useState([]);
+export default function Certifications(props) {
+    const [certifications, setCertifications] = useState<CertificationType[]>(
+        []
+    );
     const [loading, setLoading] = useState(true);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const theme = useTheme();
-
     const sm = useMediaQuery("@media (min-width:713px)");
     const md = useMediaQuery("@media (min-width:1061px)");
 
     useEffect(() => {
-        fetch("api/projects", {
+        fetch("api/certifications", {
             method: "GET",
             headers: { "Content-type": "application/json" },
         })
             .then((res) => res.json())
             .then((data) => {
-                setProjects(data.projects);
+                setCertifications(data.certifications);
                 setLoading(false);
             });
     }, []);
@@ -45,37 +44,27 @@ export default function Projects(props) {
             }}
             id={props.id}
         >
-            <SectionDivider title={"Projects"} sx={{ pt: "64px" }} />
+            <SectionDivider title={"Certifications"} sx={{ pt: "64px" }} />
 
             <Box
                 sx={{
-                    my: "1rem",
+                    m: "1rem",
                     display: "flex",
-                    flexDirection: { xs: "column", sm: "row" },
+                    // flexDirection: { xs: "column", sm: "row" },
                     flexWrap: "wrap",
                     justifyContent: "center",
+                    // alignItems: "center",
+                    gap: "1rem",
                 }}
             >
-                {!projects ? (
+                {!certifications ? (
                     <></>
                 ) : (
-                    projects
+                    certifications
                         .slice(0, md ? 6 : sm ? 4 : 2)
-                        .map(
-                            (
-                                { image, title, description, repository, live },
-                                key
-                            ) => (
-                                <Project
-                                    key={key}
-                                    img={image}
-                                    title={title}
-                                    desc={description}
-                                    github={repository}
-                                    live={live}
-                                />
-                            )
-                        )
+                        .map((certProps, key) => (
+                            <Certification key={key} {...certProps} />
+                        ))
                 )}
             </Box>
             {/* to be changed */}
@@ -96,8 +85,8 @@ export default function Projects(props) {
                     </LoadingButton>
                 </Tilt>
             </Box>
-            <ProjectsDialog
-                projects={projects}
+            <CertificationsDialog
+                certifications={certifications}
                 dialogOpen={dialogOpen}
                 setDialogOpen={setDialogOpen}
             />
@@ -105,7 +94,15 @@ export default function Projects(props) {
     );
 }
 
-function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
+function CertificationsDialog({
+    certifications,
+    dialogOpen,
+    setDialogOpen,
+}: {
+    certifications: CertificationType[];
+    dialogOpen: boolean;
+    setDialogOpen: any;
+}) {
     const theme = useTheme();
     const sm = useMediaQuery(theme.breakpoints.up("sm"));
     return (
@@ -127,7 +124,7 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                     pr: "0.35rem",
                 }}
             >
-                My Projects
+                My Certifications
                 <IconButton
                     sx={{ mr: "0.5rem" }}
                     onClick={() => setDialogOpen(false)}
@@ -135,34 +132,24 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                     <MdClose />
                 </IconButton>
             </DialogTitle>
-            <DialogContent sx={{ pb: 0, px:0 }}>
+            <DialogContent sx={{ px: "1rem", mt: "1rem" }}>
                 <Box
                     sx={{
-                        display: { xs: "block", sm: "flex" },
+                        display: "flex",
+                        width: "100%",
                         justifyContent: "center",
                         flexWrap: "wrap",
                         overflowY: "clip",
+                        gap: "1rem",
                         pb: "3rem",
                     }}
                 >
-                    {!projects ? (
+                    {!certifications ? (
                         <></>
                     ) : (
-                        projects.map(
-                            (
-                                { image, title, description, repository, live },
-                                key
-                            ) => (
-                                <Project
-                                    key={key}
-                                    img={image}
-                                    title={title}
-                                    desc={description}
-                                    github={repository}
-                                    live={live}
-                                />
-                            )
-                        )
+                        certifications.map((certProps, key) => (
+                            <Certification key={key} {...certProps} />
+                        ))
                     )}
                 </Box>
             </DialogContent>
