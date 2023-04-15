@@ -20,8 +20,10 @@ export const projectSchema = yup.object({
     title: yup.string().required(),
     description: yup.string().max(70).required(),
     repository: yup.string().url().optional(),
-    live: yup.string().url().optional()
+    link: yup.string().url().optional(),
+    type: yup.string().required()
 })
+
 export const certificationSchema = yup.object({
     image: yup.string().url().required(),
     title: yup.string().required(),

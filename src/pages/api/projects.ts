@@ -102,7 +102,7 @@ async function getProjects(quantity: number) {
             image: true,
             priority: true,
             repository: true,
-            live: true
+            link: true
         }
     })
 

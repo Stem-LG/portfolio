@@ -14,7 +14,8 @@ export interface ProjectType {
     title: string;
     description: string;
     repository: string;
-    live: string;
+    link: string;
+    type: string;
 }
 
 export interface MessageType {

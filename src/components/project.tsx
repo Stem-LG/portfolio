@@ -12,8 +12,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
+import { ProjectType } from "../types/types";
 
-export default function Project({ img, title, desc, github, live }) {
+export default function Project({ image, title, description, repository, link }:ProjectType) {
     return (
         <Paper
             sx={{
@@ -22,12 +23,11 @@ export default function Project({ img, title, desc, github, live }) {
                 width: { xs: "calc(100vw-1rem)", sm: "19.75rem" },
                 position: "relative",
                 borderRadius: "1rem",
-                
             }}
             elevation={7}
         >
             <Image
-                src={img}
+                src={image}
                 width={768}
                 height={768}
                 style={{
@@ -49,7 +49,7 @@ export default function Project({ img, title, desc, github, live }) {
                     display: { xs: "none", sm: "block" },
                 }}
             >
-                {desc}
+                {description}
             </Typography>
             <Box
                 sx={{
@@ -64,16 +64,20 @@ export default function Project({ img, title, desc, github, live }) {
             >
                 <Typography sx={{ flexGrow: 1 }}>{title}</Typography>
                 {[
-                    { title: "Github", link: github },
-                    { title: "Visit", link: live },
+                    { title: "Source", link: repository },
+                    { title: "Visit", link },
                 ].map(({ title, link }, i) => (
                     <Tilt
                         key={i}
                         scale={1.06}
                         tiltMaxAngleX={15}
                         tiltMaxAngleY={15}
+                        style={{ display: link ? "block" : "none" }}
                     >
-                        <Link href={link ? link : "#projects"} target={link ? "_blank" : ""}>
+                        <Link
+                            href={link ? link : "#projects"}
+                            target={link ? "_blank" : ""}
+                        >
                             <Button
                                 variant="contained"
                                 disabled={link ? false : true}

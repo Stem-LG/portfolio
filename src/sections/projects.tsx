@@ -63,16 +63,17 @@ export default function Projects(props) {
                         .slice(0, md ? 6 : sm ? 4 : 2)
                         .map(
                             (
-                                { image, title, description, repository, live },
+                                { image, title, description, repository, link, type },
                                 key
                             ) => (
                                 <Project
                                     key={key}
-                                    img={image}
+                                    image={image}
                                     title={title}
-                                    desc={description}
-                                    github={repository}
-                                    live={live}
+                                    description={description}
+                                    repository={repository}
+                                    link={link}
+                                    type={type}
                                 />
                             )
                         )
@@ -150,16 +151,17 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                     ) : (
                         projects.map(
                             (
-                                { image, title, description, repository, live },
+                                { image, title, description, repository, link, type },
                                 key
                             ) => (
                                 <Project
                                     key={key}
-                                    img={image}
+                                    image={image}
                                     title={title}
-                                    desc={description}
-                                    github={repository}
-                                    live={live}
+                                    description={description}
+                                    repository={repository}
+                                    link={link}
+                                    type={type}
                                 />
                             )
                         )
