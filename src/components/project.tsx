@@ -77,6 +77,7 @@ export default function Project({ img, title, desc, github, live }) {
                         <Link href={link ? link : ""} target="_blank">
                             <Button
                                 variant="contained"
+                                disabled={link ? false : true}
                                 sx={{
                                     height: "2.5rem",
                                     width: "5rem",
