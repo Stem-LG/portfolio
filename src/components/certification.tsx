@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, Link, Paper, Typography, useTheme } from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Button,
+    Link,
+    Paper,
+    Typography,
+    useTheme,
+} from "@mui/material";
 import { CertificationType } from "../types/types";
 import { GoPrimitiveDot } from "react-icons/go";
 import Tilt from "react-parallax-tilt";
@@ -69,10 +77,11 @@ export function Certification(certProps: CertificationType) {
             {/* <Typography>{description}</Typography> */}
             <Box sx={{ display: "flex", gap: "3rem", textAlign: "center" }}>
                 <Typography>
-                    issued:&nbsp;
-                    {formatDate(date)}
+                    {ongoing(date)
+                        ? "Ongoing"
+                        : "issued: " + formatDate(date)}
                 </Typography>
-                <Typography>
+                <Typography sx={{display:ongoing(date)?"none":""}}>
                     expires: &nbsp;
                     {/* <br /> */}
                     {expiry ? formatDate(expiry) : "never"}
@@ -105,6 +114,15 @@ export function Certification(certProps: CertificationType) {
             </Box>
         </Paper>
     );
+}
+
+function ongoing(date: Date) {
+    const today = new Date();
+    const certDate = new Date(date);
+    if (today.getTime() < certDate.getTime()) {
+        return true;
+    }
+    return false;
 }
 
 function formatDate(datefromdb) {
