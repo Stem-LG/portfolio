@@ -23,4 +23,5 @@ export interface MessageType {
     email: string;
     subject: string;
     message: string;
+    date: Date;
 }

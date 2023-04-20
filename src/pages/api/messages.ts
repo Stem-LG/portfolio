@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ValidationError } from "yup";
 import { messageSchema } from "../../schema";
 import { MessageType } from "../../types/types";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 
 
 
@@ -15,8 +17,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         switch (method) {
             case "GET":
-                res.status(404).json({ message: "Not implemented yet!" })
+                const session = await getServerSession(req, res, authOptions)
+
+                if (!session) {
+                    res.status(401).json({ error: "Access Denied. Not authenticated" })
+                } else if (session.user.role == "admin") {
+
+                    const messages = await readMessages()
+
+                    res.status(200).json(messages)
+
+                } else {
+                    res.status(403).json({ error: "Access Denied. Admins only" })
+                }
+
                 break;
+
             case "POST":
 
                 await messageSchema.validate(body)
@@ -56,7 +72,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
+async function readMessages() {
+    const prisma = new PrismaClient()
 
+    const messages = prisma.message.findMany(
+        {
+            orderBy: {
+                date: "desc"
+            }
+        }
+    )
+
+    return messages
+}
 
 async function saveMessage(message: MessageType): Promise<number> {
     const prisma = new PrismaClient()

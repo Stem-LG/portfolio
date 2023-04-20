@@ -7,11 +7,11 @@ import DarkContext from "../contexts/darkmode";
 import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-    const [isDarkMode, setDarkMode] = useState(false);
+    const [isDarkMode, setDarkMode] = useState(true);
 
-    useEffect(() => {
-        setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    }, []);
+    // useEffect(() => {
+    //     setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    // }, []);
 
     return (
         <>

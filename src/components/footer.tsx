@@ -4,27 +4,29 @@ import Link from "next/link";
 
 export default function Footer() {
     const theme = useTheme();
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     return (
-        <Grid
-            container
+        <Box
             sx={{
-                backgroundColor: theme.palette.background.default,
                 borderTop: 1,
-                borderColor: theme.palette.primary.main,
+                borderColor: "primary.main",
+                height: "2rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
             }}
         >
-            <Grid item xs={2}></Grid>
-            <Grid item xs={8}>
-                <Typography sx={{ textAlign: "center" }}>
-                    Software is Licenced under GPL 3.0{" "}
-                </Typography>
-            </Grid>
-            <Grid item xs={2}>
-                {!session?<Link href="/login">
-                    <Button size="small">Admin Login</Button>
-                </Link>:""}
-            </Grid>
-        </Grid>
+            {!session ? (
+                <Link href="/login">
+                    <Button size="small" sx={{ width: "4rem" }}>
+                        Admin
+                    </Button>
+                </Link>
+            ) : (
+                <Box sx={{ width: "4rem" }} />
+            )}
+            <Typography sx={{fontSize:"0.8rem", whiteSpace:"nowrap"}}>Software is Licenced under GPL 3.0 </Typography>
+            <Box sx={{ width: "4rem" }} />
+        </Box>
     );
 }

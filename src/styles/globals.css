@@ -12,3 +12,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+@keyframes infinite_rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
