@@ -6,7 +6,7 @@ export const messageSchema = yup.object({
         .string()
         .min(3)
         .max(40)
-        .matches(/^[a-zA-Z]+$/, "Alphabetic letters only")
+        .matches(/^[a-zA-Z ]+$/, "Alphabetic letters only")
         .required(),
 
     email: yup.string().email().required(),
