@@ -32,6 +32,7 @@ export default function UserInfo() {
     const theme = useTheme()
     const sm = useMediaQuery(theme.breakpoints.up("sm"))
 
+
     switch (status) {
         case "loading":
             return (
@@ -52,7 +53,9 @@ export default function UserInfo() {
                     <Scrollbars
                         universal
                         style={{
-                            height: `calc(100svh - ${sm?"64px":"48px"}px)`,
+                            height: sm
+                                ? `calc(100vh - 64px)`
+                                : `calc(100vh - 48px)`,
                             width: "100%",
                         }}
                         renderThumbVertical={() => (
