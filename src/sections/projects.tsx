@@ -23,8 +23,9 @@ export default function Projects(props) {
     const [dialogOpen, setDialogOpen] = useState(false);
     const theme = useTheme();
 
-    const sm = useMediaQuery("@media (min-width:713px)");
-    const md = useMediaQuery("@media (min-width:1061px)");
+    const sm = useMediaQuery("@media (min-width:770px)");
+    const md = useMediaQuery("@media (min-width:1300px)");
+    const lg = useMediaQuery("@media (min-width:1728px)");
 
     useEffect(() => {
         fetch("api/projects", {
@@ -34,9 +35,14 @@ export default function Projects(props) {
             .then((res) => res.json())
             .then((data) => {
                 setProjects(data.projects);
+                console.log("projects: ",data.projects)
                 setLoading(false);
             });
     }, []);
+
+
+
+    
 
     return (
         <Box
@@ -59,24 +65,9 @@ export default function Projects(props) {
                 {!projects ? (
                     <></>
                 ) : (
-                    projects
-                        .slice(0, md ? 6 : sm ? 4 : 2)
-                        .map(
-                            (
-                                { image, title, description, repository, link, type },
-                                key
-                            ) => (
-                                <Project
-                                    key={key}
-                                    image={image}
-                                    title={title}
-                                    description={description}
-                                    repository={repository}
-                                    link={link}
-                                    type={type}
-                                />
-                            )
-                        )
+                    projects.slice(0,lg && projects.length >= 8 ? 8 : md && projects.length >= 6 ? 6 : sm && projects.length >= 4 ? 4 : 2).map((project, key) => (
+                        <Project key={key} {...project} />
+                    ))
                 )}
             </Box>
             {/* to be changed */}
@@ -136,7 +127,7 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                     <MdClose />
                 </IconButton>
             </DialogTitle>
-            <DialogContent sx={{ pb: 0, px:0 }}>
+            <DialogContent sx={{ pb: 0, px: 0 }}>
                 <Box
                     sx={{
                         display: { xs: "block", sm: "flex" },
@@ -149,22 +140,9 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                     {!projects ? (
                         <></>
                     ) : (
-                        projects.map(
-                            (
-                                { image, title, description, repository, link, type },
-                                key
-                            ) => (
-                                <Project
-                                    key={key}
-                                    image={image}
-                                    title={title}
-                                    description={description}
-                                    repository={repository}
-                                    link={link}
-                                    type={type}
-                                />
-                            )
-                        )
+                        projects.map((project, key) => (
+                            <Project key={key} full {...project} />
+                        ))
                     )}
                 </Box>
             </DialogContent>

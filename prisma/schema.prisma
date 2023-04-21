@@ -20,14 +20,25 @@ model message {
 }
 
 model project {
-  id          Int     @id @default(autoincrement())
-  priority    Int     @default(0)
+  id          Int              @id @default(autoincrement())
+  priority    Int              @default(0)
   image       String
   title       String
-  type        String  @default("app")
+  type        String           @default("app")
   description String
   repository  String?
   link        String?
+  tech        technologyused[] @relation("ProjectType")
+}
+
+model technologyused {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  link String?
+
+  projects project[] @relation("ProjectType")
 }
 
 model certification {

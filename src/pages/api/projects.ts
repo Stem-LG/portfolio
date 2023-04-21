@@ -34,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 if (!session) {
                     //send nothing just 401 status
                     res.status(401).json({ error: "Access Denied. Not authenticated" })
-                    } else if (session.user.role == "admin") {
+                } else if (session.user.role == "admin") {
 
                     await projectSchema.validate(body)
 
@@ -72,10 +72,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-
-async function addProject(project: ProjectType) {
+//tbd
+async function addProject(p: ProjectType) {
 
     const prisma = new PrismaClient()
+
+    const { tech, ...project} = p
+
+
+
 
     const newProject = await prisma.project.create({
         data: project
@@ -102,7 +107,8 @@ async function getProjects(quantity: number) {
             image: true,
             priority: true,
             repository: true,
-            link: true
+            link: true,
+            tech: true
         }
     })
 

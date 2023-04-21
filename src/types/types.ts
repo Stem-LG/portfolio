@@ -16,7 +16,10 @@ export interface ProjectType {
     repository: string;
     link: string;
     type: string;
+    tech: {name:string, link:string}[];
 }
+
+
 
 export interface MessageType {
     name: string;

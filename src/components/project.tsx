@@ -2,29 +2,51 @@ import {
     Typography,
     Box,
     Button,
-    Card,
-    CardMedia,
-    CardContent,
-    CardActions,
-    useTheme,
     Paper,
+    useMediaQuery,
+    Divider,
+    Collapse,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
 import { ProjectType } from "../types/types";
+import { useTheme } from "@emotion/react";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { useState } from "react";
 
-export default function Project({ image, title, description, repository, link }:ProjectType) {
+//projectprops interface extends projecttype
+
+interface ProjectProps extends ProjectType {
+    full?: boolean;
+}
+
+export default function Project({
+    image,
+    title,
+    description,
+    repository,
+    link,
+    tech,
+    full,
+}: ProjectProps) {
+    const [infoOpen, setInfoOpen] = useState(false);
+
+    const newSm = useMediaQuery("@media (min-width:770px)");
+    console.log("@media (min-width:600px)");
+
     return (
         <Paper
             sx={{
                 m: "1rem",
-                height: { xs: "12rem", sm: "17rem" },
-                width: { xs: "calc(100vw-1rem)", sm: "19.75rem" },
+                width: {
+                    xs: !newSm ? "calc(100% - 2rem)" : "22rem",
+                    md: "25rem",
+                },
                 position: "relative",
                 borderRadius: "1rem",
+                height: "",
             }}
-            elevation={7}
         >
             <Image
                 src={image}
@@ -33,67 +55,142 @@ export default function Project({ image, title, description, repository, link }:
                 style={{
                     objectFit: "cover",
                     objectPosition: "top",
-                    height: "8rem",
+                    height: "10rem",
                     width: "100%",
                     margin: 0,
+                    marginBottom: "-0.4rem",
                     padding: 0,
                     borderRadius: "1rem 1rem 0 0",
                 }}
                 alt="hello"
-            ></Image>
-            <Typography
-                sx={{
-                    mt: "0.3rem",
-                    px: "1rem",
-                    textAlign: "center",
-                    display: { xs: "none", sm: "block" },
-                }}
-            >
-                {description}
-            </Typography>
+            />
             <Box
                 sx={{
-                    height: "4rem",
+                    height: "3.5rem",
+                    px: "1rem",
                     width: "100%",
-                    px: "0.75rem",
                     display: "flex",
                     alignItems: "center",
-                    position: "absolute",
-                    bottom: 0,
+                    justifyContent: "center",
+                    textAlign: "center",
+                }}
+            >
+                <Typography>{description}</Typography>
+            </Box>
+            <Divider />
+            <Box
+                sx={{
+                    height: "3rem",
+                    display: "flex",
+                    alignItems: "center",
+                    pl: "1rem",
+                    pr: "0.5rem",
+                    gap: "1rem",
                 }}
             >
                 <Typography sx={{ flexGrow: 1 }}>{title}</Typography>
-                {[
-                    { title: "Source", link: repository },
-                    { title: "Visit", link },
-                ].map(({ title, link }, i) => (
-                    <Tilt
-                        key={i}
-                        scale={1.06}
-                        tiltMaxAngleX={15}
-                        tiltMaxAngleY={15}
-                        style={{ display: link ? "block" : "none" }}
-                    >
-                        <Link
-                            href={link ? link : "#projects"}
-                            target={link ? "_blank" : ""}
-                        >
+                <Button
+                    endIcon={
+                        <MdKeyboardArrowDown
+                            style={{
+                                transform: infoOpen ? "rotate(180deg)" : "",
+                                transition: "all 0.2s linear",
+                            }}
+                        />
+                    }
+                    variant="outlined"
+                    sx={{
+                        borderRadius: "1rem 0",
+                        display: {
+                            xs:
+                                !repository && tech.length == 0 && full
+                                    ? "none"
+                                    : "flex",
+                            sm:
+                                !repository && tech.length == 0
+                                    ? "none"
+                                    : "flex",
+                        },
+                    }}
+                    onClick={() => setInfoOpen(!infoOpen)}
+                >
+                    info
+                </Button>
+                <Link href={link || ""} style={{display:link?"":"none"}}>
+                    <Button variant="contained" sx={{ borderRadius: "1rem 0" }}>
+                        Visit
+                    </Button>
+                </Link>
+            </Box>
+            <Divider sx={{ display: infoOpen ? "block" : "none" }} />
+
+            <Collapse in={infoOpen}>
+                <Box
+                    sx={{
+                        display: tech.length > 0 ? "flex" : "none",
+                        justifyContent: "center",
+                        height: "2rem",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography>Technologies Used</Typography>
+                </Box>
+                <Box
+                    sx={{
+                        display: tech.length > 0 ? "flex" : "none",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                        gap: "0.4rem",
+                        px: "1rem",
+                        mb: "0.5rem",
+                    }}
+                >
+                    {tech.map(({ name, link }, i) => (
+                        <Link href={link} key={i}>
                             <Button
-                                variant="contained"
-                                disabled={link ? false : true}
+                                size="small"
                                 sx={{
-                                    height: "2.5rem",
-                                    width: "5rem",
-                                    ml: i == 0 ? "" : "0.5rem",
-                                    borderRadius: "1rem 0",
+                                    height: "1.7rem",
+                                    px: "0.3rem",
+                                    minWidth: "",
                                 }}
+                                variant="contained"
+                                color="secondary"
                             >
-                                {title}
+                                {name}
                             </Button>
                         </Link>
-                    </Tilt>
-                ))}
-            </Box>
+                    ))}
+                </Box>
+                <Divider
+                    sx={{
+                        display:
+                            tech.length == 0 || !repository ? "none" : "block",
+                    }}
+                />
+
+                <Box
+                    sx={{
+                        display: repository ? "flex" : "none",
+                        justifyContent: "center",
+                        height: "3rem",
+                        alignItems: "center",
+                    }}
+                >
+                    <Link href={repository || ""}>
+                        <Button
+                            variant="contained"
+                            sx={{
+                                borderRadius: "1rem 0",
+                                height: "2rem",
+                            }}
+                        >
+                            Source Code
+                        </Button>
+                    </Link>
+                </Box>
+            </Collapse>
         </Paper>
     );
 }

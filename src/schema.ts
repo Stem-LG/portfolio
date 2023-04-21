@@ -21,7 +21,8 @@ export const projectSchema = yup.object({
     description: yup.string().max(70).required(),
     repository: yup.string().url().optional(),
     link: yup.string().url().optional(),
-    type: yup.string().required()
+    type: yup.string().required(),
+    tech: yup.array().of(yup.string())
 })
 
 export const certificationSchema = yup.object({
