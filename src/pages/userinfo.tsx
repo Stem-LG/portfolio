@@ -9,6 +9,7 @@ import {
     Collapse,
     Select,
     MenuItem,
+    useMediaQuery,
 } from "@mui/material";
 import { signOut, getSession, useSession } from "next-auth/react";
 import Head from "next/head";
@@ -23,9 +24,13 @@ import {
     MdKeyboardArrowRight,
     MdRefresh,
 } from "react-icons/md";
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 export default function UserInfo() {
     const { data: session, status } = useSession();
+
+    const theme = useTheme()
+    const sm = useMediaQuery(theme.breakpoints.up("sm"))
 
     switch (status) {
         case "loading":
@@ -44,65 +49,90 @@ export default function UserInfo() {
                         <title>userinfo</title>
                     </Head>
                     <TopAppBar />
-                    <Paper
-                        sx={{
-                            display: "flex",
-                            flexDirection: { xs: "column", lg: "row" },
-                            justifyContent: "center",
-                            gap: "3rem",
-                            mx: { md: "10%" },
-                            mt: { md: "5rem" },
-                            p: { sm: "3rem" },
-                            mb: "70svh",
+                    <Scrollbars
+                        universal
+                        style={{
+                            height: `calc(100svh - ${sm?"64px":"48px"}px)`,
+                            width: "100%",
                         }}
+                        renderThumbVertical={() => (
+                            <div
+                                style={{
+                                    width: "0.5rem",
+                                    backgroundColor: theme.palette.primary.main,
+                                    borderRadius: "0.5rem",
+                                }}
+                            />
+                        )}
                     >
-                        <Box
+                        <Paper
                             sx={{
                                 display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                gap: "0.5rem",
+                                flexDirection: { xs: "column", lg: "row" },
+                                justifyContent: "center",
+                                gap: "3rem",
+                                mx: { md: "10%" },
+                                mt: { md: "5rem" },
+                                p: { sm: "3rem" },
+                                mb: { xs: "70svh", md: "0" },
                             }}
                         >
-                            <Typography
-                                variant="h3"
-                                sx={{ textAlign: "center", my: "1rem" }}
-                                color="primary"
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                }}
                             >
-                                User Information
-                            </Typography>
+                                <Typography
+                                    variant="h3"
+                                    sx={{ textAlign: "center", my: "1rem" }}
+                                    color="primary"
+                                >
+                                    User Information
+                                </Typography>
 
-                            <Image
-                                src={session.user?.image?.toString() || ""}
-                                alt="user image"
-                                width={120}
-                                height={120}
-                            />
+                                <Image
+                                    src={session.user?.image?.toString() || ""}
+                                    alt="user image"
+                                    width={120}
+                                    height={120}
+                                />
 
-                            {[
-                                { name: "Email", value: session.user?.email },
-                                { name: "Username", value: session.user?.name },
-                                { name: "Role", value: session.user?.role },
-                            ].map(({ name, value }, key) => (
-                                <Box key={key} sx={{ textAlign: "center" }}>
-                                    <Typography sx={{ fontSize: "2rem" }}>
-                                        {name}
-                                    </Typography>
-                                    <Typography>{value}</Typography>
-                                </Box>
-                            ))}
+                                {[
+                                    {
+                                        name: "Email",
+                                        value: session.user?.email,
+                                    },
+                                    {
+                                        name: "Username",
+                                        value: session.user?.name,
+                                    },
+                                    { name: "Role", value: session.user?.role },
+                                ].map(({ name, value }, key) => (
+                                    <Box key={key} sx={{ textAlign: "center" }}>
+                                        <Typography sx={{ fontSize: "2rem" }}>
+                                            {name}
+                                        </Typography>
+                                        <Typography>{value}</Typography>
+                                    </Box>
+                                ))}
 
-                            <Button
-                                variant="contained"
-                                color="error"
-                                size="large"
-                                onClick={() => signOut({ callbackUrl: "/" })}
-                            >
-                                logout
-                            </Button>
-                        </Box>
-                        <MessagesPaper />
-                    </Paper>
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    size="large"
+                                    onClick={() =>
+                                        signOut({ callbackUrl: "/" })
+                                    }
+                                >
+                                    logout
+                                </Button>
+                            </Box>
+                            <MessagesPaper />
+                        </Paper>
+                    </Scrollbars>
 
                     <DarkModeFab />
                 </>
@@ -206,7 +236,7 @@ function MessagesPaper() {
                     justifyContent: "center",
                     alignItems: "center",
                     width: "100%",
-                    mt:"auto"
+                    mt: "auto",
                 }}
             >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
