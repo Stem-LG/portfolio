@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 
 
+const prisma = new PrismaClient()
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -73,7 +74,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 async function readMessages() {
-    const prisma = new PrismaClient()
 
     const messages = prisma.message.findMany(
         {
@@ -87,7 +87,6 @@ async function readMessages() {
 }
 
 async function saveMessage(message: MessageType): Promise<number> {
-    const prisma = new PrismaClient()
 
     if (await prisma.message.findFirst({
         where: message

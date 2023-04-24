@@ -7,6 +7,7 @@ import { authOptions } from "./auth/[...nextauth]";
 import { CertificationType } from "../../types/types";
 
 
+const prisma = new PrismaClient()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -76,7 +77,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 async function addCertification(certification: CertificationType) {
 
-    const prisma = new PrismaClient()
 
     const newCertification = await prisma.certification.create({
         data: certification
@@ -90,7 +90,6 @@ async function addCertification(certification: CertificationType) {
 
 async function getCertifications(quantity: number) {
 
-    const prisma = new PrismaClient()
 
     const certifications = await prisma.certification.findMany({
         orderBy: {
