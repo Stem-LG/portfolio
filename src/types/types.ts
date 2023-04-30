@@ -16,7 +16,7 @@ export interface ProjectType {
     repository: string;
     link: string;
     type: string;
-    tech: {name:string, link:string}[];
+    tech: {id:number}[];
 }
 
 

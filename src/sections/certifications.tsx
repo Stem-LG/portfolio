@@ -15,6 +15,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { MdClose } from "react-icons/md";
 import { CertificationType } from "../types/types";
 import { Certification } from "../components/certification";
+import Scrollbars from "react-custom-scrollbars-2";
 
 export default function Certifications(props) {
     const [certifications, setCertifications] = useState<CertificationType[]>(
@@ -132,27 +133,40 @@ function CertificationsDialog({
                     <MdClose />
                 </IconButton>
             </DialogTitle>
-            <DialogContent sx={{ px: "1rem", mt: "1rem" }}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "center",
-                        flexWrap: "wrap",
-                        overflowY: "clip",
-                        gap: "1rem",
-                        pb: "3rem",
-                    }}
-                >
-                    {!certifications ? (
-                        <></>
-                    ) : (
-                        certifications.map((certProps, key) => (
-                            <Certification key={key} {...certProps} />
-                        ))
-                    )}
-                </Box>
-            </DialogContent>
+            <Scrollbars
+                renderThumbVertical={() => (
+                    <div
+                        style={{
+                            width: "0.5rem",
+                            backgroundColor: theme.palette.primary.main,
+                            borderRadius: "0.5rem",
+                        }}
+                    />
+                )}
+                style={{ height: "100svh", width: "100%" }}
+            >
+                <DialogContent sx={{ px: "1rem", mt: "1rem" }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            width: "100%",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                            overflowY: "clip",
+                            gap: "1rem",
+                            pb: "3rem",
+                        }}
+                    >
+                        {!certifications ? (
+                            <></>
+                        ) : (
+                            certifications.map((certProps, key) => (
+                                <Certification key={key} {...certProps} />
+                            ))
+                        )}
+                    </Box>
+                </DialogContent>
+            </Scrollbars>
         </Dialog>
     );
 }

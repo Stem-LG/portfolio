@@ -24,23 +24,22 @@ export default function FloatingButtons() {
             flexDirection={{ xs: "row", md: "column" }}
         >
             <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
-
-            <Link href="/userinfo">
-                <Fab
-                    sx={{
-                        display: !session ? "none" : "flex",
-                    }}
+                <Link href="/userinfo">
+                    <Fab
+                        sx={{
+                            display: !session ? "none" : "flex",
+                        }}
                     >
-                    <Image
-                        src={session?.user?.image?.toString() || ""}
-                        style={{ borderRadius: "50%" }}
-                        alt="user image"
-                        fill={true}
-                        object-fit="cover"
+                        <Image
+                            src={session?.user?.image?.toString() || ""}
+                            style={{ borderRadius: "50%" }}
+                            alt="user image"
+                            fill={true}
+                            object-fit="cover"
                         />
-                </Fab>
-            </Link>
-                        </Tilt>
+                    </Fab>
+                </Link>
+            </Tilt>
             <Box
                 sx={{ gap: 1 }}
                 display="flex"
@@ -70,7 +69,11 @@ export default function FloatingButtons() {
                         tiltMaxAngleX={15}
                         tiltMaxAngleY={15}
                     >
-                        <a href={link} target={newtab ? "_blank" : ""} rel="noreferrer">
+                        <a
+                            href={link}
+                            target={newtab ? "_blank" : ""}
+                            rel="noreferrer"
+                        >
                             <Fab color="primary" size="small">
                                 <Icon size={20} />
                             </Fab>

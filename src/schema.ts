@@ -14,15 +14,32 @@ export const messageSchema = yup.object({
     message: yup.string().min(15).max(500).required(),
 })
 
-
-export const projectSchema = yup.object({
-    image: yup.string().url().required(),
+const projectSharedSchema = {
     title: yup.string().required(),
     description: yup.string().max(70).required(),
     repository: yup.string().url().optional(),
     link: yup.string().url().optional(),
     type: yup.string().required(),
-    tech: yup.array().of(yup.string())
+    tech: yup.array().of(yup.string()).optional()
+}
+
+export const projectSchema = yup.object({
+    image: yup.string().url().required(),
+    ...projectSharedSchema
+})
+
+export const projectSubmitSchema = yup.object({
+    image: yup.mixed()
+        .test('fileSelected', 'You must select a file', (value) => value.length != 0
+        )
+        .test('fileType', 'Only images are allowed', (value) =>
+            value.length != 0 && ['image/jpeg', 'image/png', 'image/gif'].includes(value[0].type)
+        )
+        .test('fileSize', 'File must be under 32MB', (value) =>
+            value.length != 0 && value[0].size <= 32 * 1024 * 1024
+        )
+        .required('An image is required'),
+    ...projectSharedSchema
 })
 
 export const certificationSchema = yup.object({

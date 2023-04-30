@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ValidationError } from "yup";
-import { projectSchema, projectsRequestSchema } from "../../schema";
+import { projectSchema, projectSubmitSchema, projectsRequestSchema } from "../../schema";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 import { ProjectType } from "../../types/types";
 
+const prisma = new PrismaClient()
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -28,17 +29,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 break;
 
             case "POST":
-
                 const session = await getServerSession(req, res, authOptions)
+
+
+                res.status(200).json(body)
+
+                const parsedBody = JSON.parse(body)
+                console.log("body: ", parsedBody)
+
 
                 if (!session) {
                     //send nothing just 401 status
                     res.status(401).json({ error: "Access Denied. Not authenticated" })
                 } else if (session.user.role == "admin") {
 
-                    await projectSchema.validate(body)
 
-                    await addProject(body)
+
+                    await projectSchema.validate(parsedBody)
+
+                    await addProject(parsedBody)
 
                     res.status(200)
 
@@ -75,31 +84,48 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 //tbd
 async function addProject(p: ProjectType) {
 
-    const prisma = new PrismaClient()
 
-    const { tech, ...project} = p
+    let { tech } = p
+
+    console.log("tech: ", tech)
+    //@ts-ignore
+    p.tech = tech ? tech.map((t) => { return { id: parseInt(t) } }) : []
+    console.log("tech: ", tech)
 
 
 
+    const data = {
+        title: p.title,
+        description: p.description,
+        image: p.image,
 
-    const newProject = await prisma.project.create({
-        data: project
+        repository: p.repository,
+        link: p.link,
+        type: p.type,
+    }
+
+
+    const res = await prisma.project.create({
+        data
+
     })
 
-    return newProject
-
+    console.log("res: ", res)
 }
 
 
 
 async function getProjects(quantity: number) {
 
-    const prisma = new PrismaClient()
 
     const projects = await prisma.project.findMany({
-        orderBy: {
-            priority: "asc"
-        },
+        orderBy: [
+            {
+                priority: "desc",
+            }, {
+                id: "desc"
+            }
+        ],
         take: quantity,
         select: {
             title: true,
@@ -111,6 +137,9 @@ async function getProjects(quantity: number) {
             tech: true
         }
     })
+
+
+    console.log("project0: ", projects[0])
 
     return projects
 

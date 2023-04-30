@@ -11,7 +11,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
 import { ProjectType } from "../types/types";
-import { useTheme } from "@emotion/react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState } from "react";
 
@@ -19,6 +18,7 @@ import { useState } from "react";
 
 interface ProjectProps extends ProjectType {
     full?: boolean;
+    tech: { id: 0; name: ""; link: "" }[];
 }
 
 export default function Project({
@@ -33,7 +33,6 @@ export default function Project({
     const [infoOpen, setInfoOpen] = useState(false);
 
     const newSm = useMediaQuery("@media (min-width:770px)");
-    console.log("@media (min-width:600px)");
 
     return (
         <Paper
@@ -101,22 +100,16 @@ export default function Project({
                     variant="outlined"
                     sx={{
                         borderRadius: "1rem 0",
-                        display: {
-                            xs:
-                                !repository && tech.length == 0 && full
-                                    ? "none"
-                                    : "flex",
-                            sm:
-                                !repository && tech.length == 0
-                                    ? "none"
-                                    : "flex",
-                        },
+                        display:
+                            !repository && tech.length == 0 && full
+                                ? "none"
+                                : "flex",
                     }}
                     onClick={() => setInfoOpen(!infoOpen)}
                 >
                     info
                 </Button>
-                <Link href={link || ""} style={{display:link?"":"none"}}>
+                <Link href={link || ""} style={{ display: link ? "" : "none" }}>
                     <Button variant="contained" sx={{ borderRadius: "1rem 0" }}>
                         Visit
                     </Button>
