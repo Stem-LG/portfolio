@@ -3,10 +3,13 @@ import { createTheme } from "@mui/material/styles";
 const lightTheme = createTheme({
     palette: {
         mode: "light",
-        primary: { main: "#0050ff" },
+        primary: { main: "#ffc500" },
     },
     typography: {
         fontFamily: "Flama",
+        allVariants: {
+            color: "#ffc500"
+        }  
     },
     components: {
         MuiAppBar: {
@@ -22,10 +25,26 @@ const lightTheme = createTheme({
 const darkTheme = createTheme({
     palette: {
         mode: "dark",
-        primary: { main: "#3f51b5" },
+        primary: { main: "#ffc500" },
+    
     },
     typography: {
         fontFamily: "Flama",
+        allVariants:{
+            color:"#ffc500"
+        }
+    }
+    ,
+    components:{
+        MuiOutlinedInput:{
+            defaultProps:{
+                sx:{
+                    ".MuiOutlinedInput-notchedOutline , .MuiOutlinedInput-notchedOutline:hover ":{
+                        borderColor: "primary.dark"
+                    }
+                }
+            }
+        }
     }
 
 });

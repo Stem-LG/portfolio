@@ -2,12 +2,13 @@ import "../styles/globals.css";
 import Head from "next/head";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { lightTheme, darkTheme } from "../theme";
-import { useEffect, useState } from "react";
-import DarkContext from "../contexts/darkmode";
 import { SessionProvider } from "next-auth/react";
+import { darkMode } from "../atoms";
+import { useAtomValue } from "jotai";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-    const [isDarkMode, setDarkMode] = useState(true);
+    // const isDarkMode = useAtomValue(darkMode);
+    const isDarkMode = true;
 
     // useEffect(() => {
     //     setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -29,14 +30,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 ></meta>
             </Head>
             {/*@ts-ignore*/}
-            <DarkContext.Provider value={{ isDarkMode, setDarkMode }}>
-                <SessionProvider session={session}>
-                    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-                        <CssBaseline/>
-                        <Component {...pageProps} />
-                    </ThemeProvider>
-                </SessionProvider>
-            </DarkContext.Provider>
+            <SessionProvider session={session}>
+                <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                    <CssBaseline />
+                    <Component {...pageProps} />
+                </ThemeProvider>
+            </SessionProvider>
         </>
     );
 }

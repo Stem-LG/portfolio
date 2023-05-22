@@ -1,13 +1,4 @@
-import {
-    Box,
-    useTheme,
-    Dialog,
-    Paper,
-    useMediaQuery,
-    IconButton,
-    DialogTitle,
-    DialogContent,
-} from "@mui/material";
+import { Box, useTheme, Dialog, Paper, useMediaQuery, IconButton, DialogTitle, DialogContent, Typography, Button } from "@mui/material";
 import SectionDivider from "../components/divider";
 import Project from "../components/project";
 import { useState } from "react";
@@ -27,22 +18,18 @@ export default function Projects(props) {
     const md = useMediaQuery("@media (min-width:1300px)");
     const lg = useMediaQuery("@media (min-width:1728px)");
 
-    useEffect(() => {
-        fetch("api/projects", {
-            method: "GET",
-            headers: { "Content-type": "application/json" },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setProjects(data.projects);
-                console.log("projects: ",data.projects)
-                setLoading(false);
-            });
-    }, []);
-
-
-
-    
+    // useEffect(() => {
+    //     fetch("api/projects", {
+    //         method: "GET",
+    //         headers: { "Content-type": "application/json" },
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setProjects(data.projects);
+    //             console.log("projects: ",data.projects)
+    //             setLoading(false);
+    //         });
+    // }, []);
 
     return (
         <Box
@@ -62,18 +49,33 @@ export default function Projects(props) {
                     justifyContent: "center",
                 }}
             >
-                {!projects ? (
+                <Typography>Technical Error, Well Be Fixed Soon</Typography>
+                {/* {!projects ? (
                     <></>
                 ) : (
                     projects.slice(0,lg && projects.length >= 8 ? 8 : md && projects.length >= 6 ? 6 : sm && projects.length >= 4 ? 4 : 2).map((project, key) => (
                         <Project key={key} {...project} />
                     ))
-                )}
+                )} */}
             </Box>
             {/* to be changed */}
             <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
-                    <LoadingButton
+                    instead Visit my
+                    <Link href="https://www.github.com/Stem-LG/">
+                        <Button
+                            variant="contained"
+                            sx={{
+                                height: "2.2rem",
+                                width: "6rem",
+                                borderRadius: "1rem 0",
+                                ml: "1rem",
+                            }}
+                        >
+                            Github
+                        </Button>
+                    </Link>
+                    {/* <LoadingButton
                         loading={loading}
                         loadingIndicator="Loading..."
                         variant="contained"
@@ -85,14 +87,10 @@ export default function Projects(props) {
                         onClick={() => setDialogOpen(!dialogOpen)}
                     >
                         See More
-                    </LoadingButton>
+                    </LoadingButton> */}
                 </Tilt>
             </Box>
-            <ProjectsDialog
-                projects={projects}
-                dialogOpen={dialogOpen}
-                setDialogOpen={setDialogOpen}
-            />
+            <ProjectsDialog projects={projects} dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />
         </Box>
     );
 }
@@ -101,14 +99,7 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
     const theme = useTheme();
     const sm = useMediaQuery(theme.breakpoints.up("sm"));
     return (
-        <Dialog
-            open={dialogOpen}
-            fullScreen={!sm}
-            onClose={() => setDialogOpen(false)}
-            maxWidth="lg"
-            scroll="paper"
-            fullWidth
-        >
+        <Dialog open={dialogOpen} fullScreen={!sm} onClose={() => setDialogOpen(false)} maxWidth="lg" scroll="paper" fullWidth>
             <DialogTitle
                 sx={{
                     bgcolor: `${theme.palette.primary.main}`,
@@ -120,10 +111,7 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                 }}
             >
                 My Projects
-                <IconButton
-                    sx={{ mr: "0.5rem" }}
-                    onClick={() => setDialogOpen(false)}
-                >
+                <IconButton sx={{ mr: "0.5rem" }} onClick={() => setDialogOpen(false)}>
                     <MdClose />
                 </IconButton>
             </DialogTitle>
@@ -137,13 +125,7 @@ function ProjectsDialog({ projects, dialogOpen, setDialogOpen }) {
                         pb: "3rem",
                     }}
                 >
-                    {!projects ? (
-                        <></>
-                    ) : (
-                        projects.map((project, key) => (
-                            <Project key={key} full {...project} />
-                        ))
-                    )}
+                    {!projects ? <></> : projects.map((project, key) => <Project key={key} full {...project} />)}
                 </Box>
             </DialogContent>
         </Dialog>

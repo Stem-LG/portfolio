@@ -7,9 +7,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
+import { useAtom } from "jotai";
+import { darkMode } from "../atoms";
 
 export default function FloatingButtons() {
-    const { isDarkMode, setDarkMode } = useContext(DarkModeContext);
+    const [ isDarkMode, setDarkMode ] = useAtom(darkMode);
     const { data: session } = useSession();
     return (
         <Box
@@ -77,7 +79,7 @@ export default function FloatingButtons() {
                         </a>
                     </Tilt>
                 ))}
-                <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
+                {/* <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
                     <Fab
                         color="primary"
                         size="large"
@@ -89,7 +91,7 @@ export default function FloatingButtons() {
                             <FaSun size={25} />
                         )}
                     </Fab>
-                </Tilt>
+                </Tilt> */}
             </Box>
         </Box>
     );

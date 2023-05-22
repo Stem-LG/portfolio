@@ -116,7 +116,7 @@ export function Certification(certProps: CertificationType) {
     );
 }
 
-function ongoing(date: Date) {
+function ongoing(date) {
     const today = new Date();
     const certDate = new Date(date);
     if (today.getTime() < certDate.getTime()) {

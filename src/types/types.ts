@@ -3,8 +3,8 @@ export interface CertificationType {
     title: string;
     description: string;
     issuer: string;
-    date: Date;
-    expiry?: Date;
+    date: string;
+    expiry?: string;
     link: string;
     presential: boolean;
 }
