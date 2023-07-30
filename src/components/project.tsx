@@ -116,7 +116,7 @@ export default function Project({
                 >
                     info
                 </Button>
-                <Link href={link || ""} style={{display:link?"":"none"}}>
+                <Link href={link || "#"} style={{display:link?"":"none"}}>
                     <Button variant="contained" sx={{ borderRadius: "1rem 0" }}>
                         Visit
                     </Button>
@@ -147,7 +147,7 @@ export default function Project({
                     }}
                 >
                     {tech.map(({ name, link }, i) => (
-                        <Link href={link} key={i}>
+                        <Link href={link || "#"} key={i}>
                             <Button
                                 size="small"
                                 sx={{
@@ -178,7 +178,7 @@ export default function Project({
                         alignItems: "center",
                     }}
                 >
-                    <Link href={repository || ""}>
+                    <Link href={repository || "#"}>
                         <Button
                             variant="contained"
                             sx={{

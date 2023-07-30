@@ -94,37 +94,25 @@ async function addProject(p: ProjectType) {
 
 async function getProjects(quantity: number) {
 
-    // const prisma = new PrismaClient()
+    const prisma = new PrismaClient()
 
-    // const projects = await prisma.project.findMany({
-    //     orderBy: {
-    //         priority: "asc"
-    //     },
-    //     take: quantity,
-    //     select: {
-    //         title: true,
-    //         description: true,
-    //         image: true,
-    //         priority: true,
-    //         repository: true,
-    //         link: true,
-    //         tech: true
-    //     }
-    // })
-
-    const projects = [
-        {
-            priority: "",
-            title: "",
-            description: "",
-            image: "",
-            repository: "",
-            link: "",
-            tech: [{
-
-            }]
+    const projects = await prisma.project.findMany({
+        orderBy: {
+            priority: "asc"
         },
-    ]
+        take: quantity,
+        select: {
+            title: true,
+            description: true,
+            image: true,
+            priority: true,
+            repository: true,
+            link: true,
+            tech: true
+        }
+    })
+
+   
 
 
     return projects

@@ -18,18 +18,18 @@ export default function Projects(props) {
     const md = useMediaQuery("@media (min-width:1300px)");
     const lg = useMediaQuery("@media (min-width:1728px)");
 
-    // useEffect(() => {
-    //     fetch("api/projects", {
-    //         method: "GET",
-    //         headers: { "Content-type": "application/json" },
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setProjects(data.projects);
-    //             console.log("projects: ",data.projects)
-    //             setLoading(false);
-    //         });
-    // }, []);
+    useEffect(() => {
+        fetch("api/projects", {
+            method: "GET",
+            headers: { "Content-type": "application/json" },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setProjects(data.projects);
+                console.log("projects: ", data.projects);
+                setLoading(false);
+            });
+    }, []);
 
     return (
         <Box
@@ -49,33 +49,16 @@ export default function Projects(props) {
                     justifyContent: "center",
                 }}
             >
-                <Typography>Technical Error, Well Be Fixed Soon</Typography>
-                {/* {!projects ? (
+                {!projects ? (
                     <></>
                 ) : (
-                    projects.slice(0,lg && projects.length >= 8 ? 8 : md && projects.length >= 6 ? 6 : sm && projects.length >= 4 ? 4 : 2).map((project, key) => (
-                        <Project key={key} {...project} />
-                    ))
-                )} */}
+                    projects.slice(0, lg && projects.length >= 8 ? 8 : md && projects.length >= 6 ? 6 : sm && projects.length >= 4 ? 4 : 2).map((project, key) => <Project key={key} {...project} />)
+                )}
             </Box>
             {/* to be changed */}
             <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={15}>
-                    instead Visit my
-                    <Link href="https://www.github.com/Stem-LG/">
-                        <Button
-                            variant="contained"
-                            sx={{
-                                height: "2.2rem",
-                                width: "6rem",
-                                borderRadius: "1rem 0",
-                                ml: "1rem",
-                            }}
-                        >
-                            Github
-                        </Button>
-                    </Link>
-                    {/* <LoadingButton
+                    <LoadingButton
                         loading={loading}
                         loadingIndicator="Loading..."
                         variant="contained"
@@ -87,7 +70,7 @@ export default function Projects(props) {
                         onClick={() => setDialogOpen(!dialogOpen)}
                     >
                         See More
-                    </LoadingButton> */}
+                    </LoadingButton>
                 </Tilt>
             </Box>
             <ProjectsDialog projects={projects} dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />

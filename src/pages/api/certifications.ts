@@ -92,57 +92,25 @@ async function getCertifications(quantity: number) {
 
     const prisma = new PrismaClient()
 
-    // const certifications = await prisma.certification.findMany({
-    //     orderBy: {
-    //         priority: "asc"
-    //     },
-    //     take: quantity,
-    //     select: {
-    //         priority: true,
-    //         image: true,
-    //         title: true,
-    //         description: true,
-    //         issuer: true,
-    //         date: true,
-    //         expiry: true,
-    //         link: true,
-    //         presential: true
-    //     }
-    // })
-
-    const certifications = [
-        {
-            priority: 1,
-            image: "/assets/images/Coursera-Logo.png",
-            title: "Machine Learning Specialization",
-            description: "",
-            issuer: "Coursera | DeepLearning.ai, Stanford",
-            date: "2023-05-21 00:00:00.000",
-            expiry: "",
-            link: "https://www.coursera.org/account/accomplishments/specialization/certificate/N5RFXEPYE4GX",
-            presential: false
-        }, {
-            priority: 2,
-            image: "/assets/images/Coursera-Logo.png",
-            title: "Google IT Support Specialization",
-            description: "",
-            issuer: "Coursera | Google",
-            date: "2023-01-04 01:25:00.000",
-            expiry: "",
-            link: "https://www.coursera.org/account/accomplishments/specialization/certificate/NR94EGMGGGSL",
-            presential: false
-        }, {
-            priority: 3,
-            image: "/assets/images/Coursera-Logo.png",
-            title: "Google IT Automation with Python",
-            description: "",
-            issuer: "Coursera | Google",
-            date: "2023-02-01 22:21:00.000",
-            expiry: "",
-            link: "https://www.coursera.org/account/accomplishments/specialization/certificate/TCZET7PLYLFL",
-            presential: false
+    const certifications = await prisma.certification.findMany({
+        orderBy: {
+            priority: "asc"
         },
-    ]
+        take: quantity,
+        select: {
+            priority: true,
+            image: true,
+            title: true,
+            description: true,
+            issuer: true,
+            date: true,
+            expiry: true,
+            link: true,
+            presential: true
+        }
+    })
+
+    
 
     return certifications
 
