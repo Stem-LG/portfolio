@@ -8,66 +8,31 @@ import {
     DialogContent,
 } from "@mui/material";
 import SectionDivider from "../components/divider";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
-import LoadingButton from "@mui/lab/LoadingButton";
+import { LoadingButton } from "@mui/lab";
 import { MdClose } from "react-icons/md";
 import { CertificationType } from "../types/types";
 import { Certification } from "../components/certification";
 
 export default function Certifications(props) {
-    const certifications = [
-        {
-            priority: 1,
-            image: "/assets/images/Coursera-Logo.png",
-            title: "Machine Learning Specialization",
-            description: "",
-            issuer: "Coursera | DeepLearning.ai, Stanford",
-            date: "2023-05-21 00:00:00.000",
-            expiry: "",
-            link: "https://www.coursera.org/account/accomplishments/specialization/certificate/N5RFXEPYE4GX",
-            presential: false,
-        },
-        {
-            priority: 2,
-            image: "/assets/images/Coursera-Logo.png",
-            title: "Google IT Support Specialization",
-            description: "",
-            issuer: "Coursera | Google",
-            date: "2023-01-04 01:25:00.000",
-            expiry: "",
-            link: "https://www.coursera.org/account/accomplishments/specialization/certificate/NR94EGMGGGSL",
-            presential: false,
-        },
-        {
-            priority: 3,
-            image: "/assets/images/Coursera-Logo.png",
-            title: "Google IT Automation with Python",
-            description: "",
-            issuer: "Coursera | Google",
-            date: "2023-02-01 22:21:00.000",
-            expiry: "",
-            link: "https://www.coursera.org/account/accomplishments/specialization/certificate/TCZET7PLYLFL",
-            presential: false,
-        },
-    ];
-    const [loading, setLoading] = useState(false);
+    const [certifications,setCertifications] = useState([])
+    const [loading, setLoading] = useState(true);
     const [dialogOpen, setDialogOpen] = useState(false);
     const sm = useMediaQuery("@media (min-width:713px)");
     const md = useMediaQuery("@media (min-width:1061px)");
 
-    // useEffect(() => {
-    //     fetch("api/certifications", {
-    //         method: "GET",
-    //         headers: { "Content-type": "application/json" },
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setCertifications(data.certifications);
-    //             setLoading(false);
-    //         });
-    // }, []);
+    useEffect(() => {
+        fetch("api/certifications", {
+            method: "GET",
+            headers: { "Content-type": "application/json" },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setCertifications(data.certifications);
+                setLoading(false);
+            });
+    }, []);
 
     return (
         <Box

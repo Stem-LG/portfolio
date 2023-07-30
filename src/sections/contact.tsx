@@ -34,7 +34,7 @@ export default function Contact(props) {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<inputType>({
+    } = useForm({
         resolver: yupResolver(messageSchema),
     });
 

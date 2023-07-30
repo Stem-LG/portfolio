@@ -110,7 +110,7 @@ async function getCertifications(quantity: number) {
         }
     })
 
-    
+    console.log(certifications)
 
     return certifications
 

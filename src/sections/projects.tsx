@@ -1,11 +1,10 @@
-import { Box, useTheme, Dialog, Paper, useMediaQuery, IconButton, DialogTitle, DialogContent, Typography, Button } from "@mui/material";
+import { Box, useTheme, Dialog, Paper, useMediaQuery, IconButton, DialogTitle, DialogContent } from "@mui/material";
 import SectionDivider from "../components/divider";
 import Project from "../components/project";
 import { useState } from "react";
 import { useEffect } from "react";
-import Link from "next/link";
 import Tilt from "react-parallax-tilt";
-import LoadingButton from "@mui/lab/LoadingButton";
+import { LoadingButton } from "@mui/lab";
 import { MdClose } from "react-icons/md";
 
 export default function Projects(props) {

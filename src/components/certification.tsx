@@ -8,7 +8,7 @@ import {
     useTheme,
 } from "@mui/material";
 import { CertificationType } from "../types/types";
-import { GoPrimitiveDot } from "react-icons/go";
+import { GoDotFill } from "react-icons/go";
 import Tilt from "react-parallax-tilt";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
@@ -97,7 +97,7 @@ export function Certification(certProps: CertificationType) {
                 }}
             >
                 <Typography sx={{ display: "flex", alignItems: "center" }}>
-                    <GoPrimitiveDot color={theme.palette.secondary.main} />
+                    <GoDotFill color={theme.palette.secondary.main} />
                     &nbsp;{presential ? "In-Person" : "Online"}
                 </Typography>
                 <Tilt scale={1.06} tiltMaxAngleX={15} tiltMaxAngleY={10}>
